@@ -579,7 +579,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                                  whatApp: whatsNum,
                                );
                               },
-                            text: 'update', style: const TextStyle(color: Colors.white),background: defaultColor ,
+                            text: 'upload', style: const TextStyle(color: Colors.white),background: defaultColor ,
                           ),
                         ),
                       ],
