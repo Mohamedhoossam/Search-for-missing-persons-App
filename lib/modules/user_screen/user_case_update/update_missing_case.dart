@@ -92,7 +92,7 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
             countryController.text = countryController.text.isEmpty? model!.country! : countryController.text;
             stateController.text = stateController.text.isEmpty ? model!.state! : stateController.text;
             accidentController.text = accidentController.text.isEmpty ? model!.circumstances! : accidentController.text;
-            messengerUserNameController.text = messengerUserNameController.text.isEmpty? model!.messangerUserName! : messengerUserNameController.text;
+            messengerUserNameController.text = messengerUserNameController.text.isEmpty? model!.messangerUserName??'' : messengerUserNameController.text;
             yearOfBirthController.text = yearOfBirthController.text.isEmpty? model!.yearOfBirth!.toString() : yearOfBirthController.text;
             phoneNumberController.text = phoneNumberController.text.isEmpty? model!.phone! : phoneNumberController.text;
             whatsNumberController.text = whatsNumberController.text.isEmpty ? model!.whatsApp! : whatsNumberController.text;

@@ -44,5 +44,12 @@ String updateUserThingsCaseUrl="/Things/updateThingsForUser/";
 // search by image
 String searchByImageUrl="/person/searchByImage";
 
+// found user case
+String thingsFoundUrl = "/Things/found/";
+String missingFoundUrl = "/person/found/";
+String searchFamilyFoundUrl = "/person/found/";
+String counterFoundUrl = "/person/conterFound";
+
+
 
 

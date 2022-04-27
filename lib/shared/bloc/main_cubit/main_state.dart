@@ -185,9 +185,27 @@ class AppChangeModeState extends MainState {}
 class JustEmitState extends MainState {}
 class CheckNetState extends MainState {}
 
+// search image state
 class SearchByImageLoadingState extends MainState {}
 class SearchByImageSuccessState extends MainState {
   // late String message;
   // UpdateCaseSuccessState(this.message);
 }
 class SearchByImageErrorState extends MainState {}
+
+
+// user case found state
+class UserCaseFoundLoadingState extends MainState {}
+class UserCaseFoundSuccessState extends MainState {
+  // late String message;
+  // UpdateCaseSuccessState(this.message);
+}
+class UserCaseFoundErrorState extends MainState {}
+
+// counter case found state
+class CounterCaseFoundLoadingState extends MainState {}
+class CounterCaseFoundSuccessState extends MainState {
+  // late String message;
+  // UpdateCaseSuccessState(this.message);
+}
+class CounterCaseFoundErrorState extends MainState {}

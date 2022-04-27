@@ -118,6 +118,7 @@ class MissingPersonCaseScreen extends StatelessWidget {
                               color: Colors.limeAccent,
                               icon: Icons.done,
                               onTap: (){
+                                cubit.userMissingCaseFound(id: cubit.userMissingCaseModel!.data![index].sId.toString());
                                 //AppCubit.get(context).updateDatabase(id: model['id'], status: 'new');
                               },
                             )
