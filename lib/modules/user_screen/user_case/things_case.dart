@@ -110,6 +110,8 @@ class ThingsCaseScreen extends StatelessWidget {
                                   color: Colors.limeAccent,
                                   icon: Icons.done,
                                   onTap: (){
+                                    cubit.userThingsCaseFound(id: cubit.userThingsCaseModel!.data![index].sId.toString());
+
                                   },
                                 )
 

@@ -113,7 +113,8 @@ class SearchForFamilyCaseScreen extends StatelessWidget {
                                 color: Colors.limeAccent,
                                 icon: Icons.done,
                                 onTap: (){
-                                  //AppCubit.get(context).updateDatabase(id: model['id'], status: 'new');
+                                  cubit.userSearchFamilyCaseFound(id: cubit.userSearchForFamilyCaseModel!.data![index].sId.toString());
+
                                 },
                               )
 

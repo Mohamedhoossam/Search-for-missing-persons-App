@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(create: (context) => LoginCubit(),),
-      BlocProvider(create: (context) => MainCubit()..checkInterNet()..changeAppMode(fromShared: isDark)..getAllPerson()..getAllThings()..getOldTenPerson()..getUserMissingCase()..getUserSearchForFamilyCase()..getUserThingsCase()..getProfile()
+      BlocProvider(create: (context) => MainCubit()..checkInterNet()..changeAppMode(fromShared: isDark)..getAllPerson()..getAllThings()..getOldTenPerson()..getUserMissingCase()..getUserSearchForFamilyCase()..getUserThingsCase()..getProfile()..counterFound()
       ),
 
     ],

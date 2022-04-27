@@ -582,8 +582,6 @@ void getOldTenPerson()async{
       emit(PersonFilterSuccessState(getAllPersonModel!));
       Navigator.of(context).pop();
     }on DioError catch(e){
-
-      //getAllPersonModel=GetAllPersonModel.fromJson(e.response!.data);
       emit(PersonFilterSuccessState(getAllPersonModel!));
       getAllPerson();
       Fluttertoast.showToast(
@@ -653,7 +651,6 @@ void getOldTenPerson()async{
 
     }on DioError catch(e){
 
-     // getAllThingsModel=GetAllThingsModel.fromJson(e.response!.data);
       getAllThings();
       Fluttertoast.showToast(
         msg:'Not Found 😅 !',
@@ -920,7 +917,6 @@ void getOldTenPerson()async{
 
 //////////////////delete search for family case////////////////////////////////
 
-
   void deleteSearchForFamilyCase({
     required String id,
   })async{
@@ -947,7 +943,6 @@ void getOldTenPerson()async{
 ///////////////////end///////////////////////////////////////////
 
 //////////////////delete things case////////////////////////////////
-
 
   void deleteThingsCase({
     required String id,
@@ -1035,7 +1030,10 @@ void getOldTenPerson()async{
       showToast(text: 'update success', state: ToastStates.SUCCESS);
       emit(UpdateUserCaseSuccessState());
     }on DioError catch(e){
+
       emit(UpdateUserCaseSuccessState());
+      print(e.response!.data);
+
     }catch(e){
       emit(UpdateUserCaseErrorState());
 
@@ -1213,7 +1211,9 @@ void getOldTenPerson()async{
       emit(SearchByImageSuccessState());
 
     }on DioError catch(e){
-      showToast(text: 'Error Try Again', state: ToastStates.ERROR);
+      searchByImageModel!.data=[];
+      showToast(text: 'Not Found try Again 😅', state: ToastStates.ERROR);
+      searchByImage = null;
       emit(SearchByImageSuccessState());
 
     }catch(e){
@@ -1270,6 +1270,115 @@ void getOldTenPerson()async{
     emit(ImageDeleteSuccessState());
   }
   ////////////////////////////////////////////////////////////////////////
+///////////////////////////// missing case found//////
+  void userMissingCaseFound({
+    required String id,
+  })async{
+
+    emit(UserCaseFoundLoadingState());
+    try {
+      var response = await DioHelper.postData(
+          url: missingFoundUrl+id,
+          token: token, data: null,
+      );
+      print(response.data);
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+
+
+      emit(UserCaseFoundSuccessState());
+      getUserMissingCase();
+      getAllPerson();
+
+    }on DioError catch(e){
+      print(e.response!.data);
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+
+
+
+      emit(UserCaseFoundSuccessState());
+
+    }catch(e){
+      emit(UserCaseFoundErrorState());
+    }
+
+  }
+///////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////  searchFamily case found//////
+  void userSearchFamilyCaseFound({
+    required String id,
+  })async{
+
+    emit(UserCaseFoundLoadingState());
+    try {
+      var response = await DioHelper.postData(
+        url: searchFamilyFoundUrl+id,
+        token: token, data: null,
+      );
+      print(response.data);
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      emit(UserCaseFoundSuccessState());
+      getUserSearchForFamilyCase();
+      getAllPerson();
+
+    }on DioError catch(e){
+
+      emit(UserCaseFoundSuccessState());
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+
+
+    }catch(e){
+      emit(UserCaseFoundErrorState());
+    }
+
+  }
+///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////// things case found//////////////////////
+  void userThingsCaseFound({
+    required String id,
+  })async{
+
+    emit(UserCaseFoundLoadingState());
+    try {
+      var response = await DioHelper.postData(
+        url: thingsFoundUrl+id,
+        token: token, data: null,
+      );
+      print(response.data);
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      emit(UserCaseFoundSuccessState());
+      getUserThingsCase();
+      getAllPerson();
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+
+      emit(UserCaseFoundSuccessState());
+
+    }catch(e){
+      emit(UserCaseFoundErrorState());
+    }
+
+  }
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////counterFoundUrl////////////////////////////////////
+void counterFound()async{
+
+  emit(CounterCaseFoundLoadingState());
+  try {
+    var response = await DioHelper.getData(
+      url: counterFoundUrl,
+    );
+    emit(CounterCaseFoundSuccessState());
+    print(response.data);
+
+  }catch(e){
+    emit(CounterCaseFoundErrorState());
+  }
+
+}
+////////////////////////////////////////////////////////////////////////////
 
 
 
