@@ -50,6 +50,11 @@ String missingFoundUrl = "/person/found/";
 String searchFamilyFoundUrl = "/person/found/";
 String counterFoundUrl = "/person/conterFound";
 
-
-
+// admin case
+String getAminMissingCaseUrl="/Admin/getDataAdminPerson?Accept=false";
+String getAminSearchForFamilyCaseUrl="/Admin/getDataAdminPersonF?Accept=false";
+String getAminThingsCaseUrl="/Admin/getDataAdminThings?Accept=false";
+String deleteAdminMissingCaseUrl="/Admin/adminDeletePerson/";
+String deleteAdminSearchForFamilyCaseUrl="/Admin/adminDeletePersonF/";
+String deleteAdminThingsCaseUrl="/Admin/adminDeleteThings/";
 

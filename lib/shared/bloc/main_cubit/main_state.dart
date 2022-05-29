@@ -1,5 +1,8 @@
 
 
+import 'package:newnew/model/admin_model/get_missing_person.dart';
+import 'package:newnew/model/admin_model/get_search_for_family.dart';
+import 'package:newnew/model/admin_model/get_things.dart';
 import 'package:newnew/model/get_model/get_all_person_model.dart';
 import 'package:newnew/model/get_model/get_all_things_model.dart';
 import 'package:newnew/model/get_model/old_ten_model.dart';
@@ -209,3 +212,41 @@ class CounterCaseFoundSuccessState extends MainState {
   // UpdateCaseSuccessState(this.message);
 }
 class CounterCaseFoundErrorState extends MainState {}
+
+
+//get Admin missing case
+class GetAdminMissingCaseLoadingState extends MainState {}
+class GetAdminMissingCaseSuccessState extends MainState {
+  late AdminMissingPersonModel adminMissingPersonModel;
+  GetAdminMissingCaseSuccessState(this.adminMissingPersonModel);
+}
+class GetAdminMissingCaseErrorState extends MainState {}
+
+//get Admin search for family case
+class GetAdminSearchForFamilyCaseLoadingState extends MainState {}
+class GetAdminSearchForFamilyCaseSuccessState extends MainState {
+  late AdminSearchForFamilyModel adminSearchForFamilyModel;
+  GetAdminSearchForFamilyCaseSuccessState(this.adminSearchForFamilyModel);
+}
+class GetAdminSearchForFamilyCaseErrorState extends MainState {}
+
+//get Admin Things case
+class GetAdminThingsCaseLoadingState extends MainState {}
+class GetAdminThingsCaseSuccessState extends MainState {
+   late AdminThingsModel adminThingsModel;
+  GetAdminThingsCaseSuccessState(this.adminThingsModel);
+}
+class GetAdminThingsCaseErrorState extends MainState {}
+// delet Admin case
+class DeleteAdminCaseLoadingState extends MainState {}
+class DeleteAdminCaseSuccessState extends MainState {
+  late String message;
+  DeleteAdminCaseSuccessState(this.message);
+}
+class DeleteAdminCaseErrorState extends MainState {}
+
+// admin case accept state
+class AdminCaseAcceptLoadingState extends MainState {}
+class AdminCaseAcceptSuccessState extends MainState {
+}
+class AdminCaseAcceptErrorState extends MainState {}
