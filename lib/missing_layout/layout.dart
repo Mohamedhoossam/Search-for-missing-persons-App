@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newnew/modules/admin_screen/admin_screen.dart';
 import 'package:newnew/modules/user_screen/aboutus_screen.dart';
 import 'package:newnew/modules/user_screen/contactus_screen.dart';
 import 'package:newnew/modules/user_screen/setting_screen.dart';
@@ -11,6 +10,8 @@ import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/constant.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
+
+import '../modules/user_screen/user_case/user_case_screen.dart';
 
 class LayoutScreen extends StatelessWidget {
    var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -111,7 +112,7 @@ class LayoutScreen extends StatelessWidget {
               textColor: Colors.white,
               iconColor: Colors.white,
               onTap: (){
-                navigateTo(context,  AdminScreen());
+                navigateTo(context,  const UserCaseScreen());
               },
             ),
             ListTile(
@@ -150,7 +151,7 @@ class LayoutScreen extends StatelessWidget {
                     content: const Text('you want logout?'),
                     actions: [
                       MaterialButton(onPressed: (){
-                        cubit.missingLogout(context);
+                        Navigator.of(context).pop();
                       },child: Text('cancel',style: TextStyle(color: defaultColor),),),
                       MaterialButton(onPressed: (){
                         cubit.missingLogout(context);
