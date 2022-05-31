@@ -1,24 +1,18 @@
-class AdminThingsModel {
+class AcceptThingsAdmin {
   String? status;
-  Null? message;
-  List<AdminThingsData>? data;
+  String? message;
+  Data? data;
 
 
-  AdminThingsModel.fromJson(Map<String, dynamic> json) {
+  AcceptThingsAdmin.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      data =  <AdminThingsData>[];
-      json['data'].forEach((v) {
-        data!.add( AdminThingsData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ?  Data.fromJson(json['data']) : null;
   }
-
 
 }
 
-class AdminThingsData {
+class Data {
   String? sId;
   String? name;
   String? type;
@@ -38,7 +32,7 @@ class AdminThingsData {
 
 
 
-  AdminThingsData.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     type = json['type'];
@@ -55,8 +49,7 @@ class AdminThingsData {
     accept = json['Accept'];
     castDate = json['castDate'];
     iV = json['__v'];
-
-
   }
+
 
 }

@@ -5,9 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:newnew/model/admin_model/accept_missing_model.dart';
 import 'package:newnew/model/admin_model/get_missing_person.dart';
 import 'package:newnew/model/admin_model/get_search_for_family.dart';
 import 'package:newnew/model/admin_model/get_things.dart';
+import 'package:newnew/model/admin_model/not_accept_missing_model.dart';
+import 'package:newnew/model/admin_model/not_accept_search_for_family_model.dart';
+import 'package:newnew/model/admin_model/not_accept_tthings_model.dart';
 import 'package:newnew/model/get_model/get_all_person_model.dart';
 import 'package:newnew/model/get_model/get_all_things_model.dart';
 import 'package:newnew/model/get_model/user_missing_person_case.dart';
@@ -1560,28 +1564,195 @@ void counterFound()async{
 ///////////////////end///////////////////////////////////////////
 
 /////////////////////////////admin missing case accept//////
-//   void adminMissingCaseAccept({
-//     required String id,
-//   })async{
-//     emit(AdminCaseAcceptLoadingState());
-//     try {
-//       var response = await DioHelper.postData(
-//         url: +id,
-//         token: token, data: null,
-//       );
-//
-//       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
-//       emit(AdminCaseAcceptSuccessState());
-//
-//     }on DioError catch(e){
-//       showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
-//       emit(AdminCaseAcceptSuccessState());
-//
-//     }catch(e){
-//       emit(AdminCaseAcceptErrorState());
-//     }
-//   }
+  AcceptMissingAdmin? acceptMissingAdmin;
+  void adminMissingCaseAccept({
+    required String id,
+  })async{
+    emit(AdminCaseAcceptLoadingState());
+    try {
+      var response = await DioHelper.postData(
+        url: acceptAdminMissingCaseUrl+id,
+        token: token,
+         data: []
+      );
+
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      getAdminMissingCase();
+      emit(AdminCaseAcceptSuccessState());
+      print('55555555555555555555555555555');
+      print(response.data);
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+      emit(AdminCaseAcceptSuccessState());
+      print('7777777777777777777777');
+      print(e.response!.data);
+    }catch(e){
+      emit(AdminCaseAcceptErrorState());
+    }
+  }
 ///////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////admin Things case accept//////
+
+  void adminThingsCaseAccept({
+    required String id,
+  })async{
+    emit(AdminThingsAcceptLoadingState());
+    try {
+      var response = await DioHelper.postData(
+          url: acceptAdminThingsCaseUrl+id,
+          token: token,
+          data: []
+      );
+
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      getAdminThingsCase();
+      emit(AdminThingsAcceptSuccessState());
+      print('55555555555555555555555555555');
+      print(response.data);
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+      emit(AdminThingsAcceptSuccessState());
+      print('7777777777777777777777');
+      print(e.response!.data);
+    }catch(e){
+      emit(AdminThingsAcceptErrorState());
+    }
+  }
+///////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////admin Search For Family case accept//////
+
+  void adminSearchForFamilyCaseAccept({
+    required String id,
+  })async{
+    emit(AdminSearchForFamilyAcceptLoadingState());
+    try {
+      var response = await DioHelper.postData(
+          url: acceptAdminSearchForFamilyCaseUrl+id,
+          token: token,
+          data: []
+      );
+
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      getAdminSearchForFamilyCase();
+      emit(AdminSearchForFamilyAcceptSuccessState());
+      print('55555555555555555555555555555');
+      print(response.data);
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+      emit(AdminSearchForFamilyAcceptSuccessState());
+      print('7777777777777777777777');
+      print(e.response!.data);
+    }catch(e){
+      emit(AdminSearchForFamilyAcceptErrorState());
+    }
+  }
+///////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////// not accept missing admin /////////////////
+  MissingRejectAdmin? missingRejectAdmin;
+  void reasonForRefusedMissing(
+      {
+        String? message,
+        required String id,
+      }
+      )async{
+
+    FormData formData = FormData.fromMap({
+      'message' : message,
+    });
+
+
+    emit(RejectedMissingLoadingState());
+    try {
+      var response = await DioHelper.postData(url: rejectedAdminMissingCaseUrl+id, data:formData,token: token);
+      missingRejectAdmin=MissingRejectAdmin.fromJson(response.data);
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      emit(RejectedMissingSuccessState(missingRejectAdmin!));
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+      missingRejectAdmin=MissingRejectAdmin.fromJson(e.response!.data);
+      emit(RejectedMissingSuccessState(missingRejectAdmin!));
+
+    }catch(e) {
+      emit(RejectedMissingErrorState());
+
+    }
+  }
+
+///////////////////end///////////////////////////////////////////
+
+//////////////////////////// not accept search for family admin /////////////////
+  SearchFamilyRejectAdmin? searchFamilyRejectAdmin;
+  void reasonForRefusedSearchFamily(
+      {
+        String? message,
+        required String id,
+      }
+      )async{
+
+    FormData formData = FormData.fromMap({
+      'message' : message,
+    });
+
+    emit(RejectedSearchForFamilyLoadingState());
+    try {
+      var response = await DioHelper.postData(url: rejectedAdminSearchForFamilyCaseUrl+id, data:formData,token: token);
+      searchFamilyRejectAdmin=SearchFamilyRejectAdmin.fromJson(response.data);
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      emit(RejectedSearchForFamilySuccessState(searchFamilyRejectAdmin!));
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+      searchFamilyRejectAdmin=SearchFamilyRejectAdmin.fromJson(e.response!.data);
+      emit(RejectedSearchForFamilySuccessState(searchFamilyRejectAdmin!));
+
+    }catch(e) {
+      emit(RejectedSearchForFamilyErrorState());
+
+    }
+  }
+
+///////////////////end///////////////////////////////////////////
+
+//////////////////////////// not accept Things admin /////////////////
+  ThingsRejectAdmin? thingsRejectAdmin;
+  void reasonForRefusedThings(
+      {
+        String? message,
+        required String id,
+      }
+      )async{
+
+    FormData formData = FormData.fromMap({
+      'message' : message,
+    });
+
+    emit(RejectedThingsLoadingState());
+    try {
+      var response = await DioHelper.postData(url: rejectedAdminThingsCaseUrl+id, data:formData,token: token);
+      thingsRejectAdmin=ThingsRejectAdmin.fromJson(response.data);
+      showToast(text:response.data['message'], state: ToastStates.SUCCESS);
+      emit(RejectedThingsSuccessState(thingsRejectAdmin!));
+
+    }on DioError catch(e){
+      showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
+      thingsRejectAdmin=ThingsRejectAdmin.fromJson(e.response!.data);
+      emit(RejectedThingsSuccessState(thingsRejectAdmin!));
+
+    }catch(e) {
+      emit(RejectedThingsErrorState());
+
+    }
+  }
+
+///////////////////end///////////////////////////////////////////
+
 }
 
 

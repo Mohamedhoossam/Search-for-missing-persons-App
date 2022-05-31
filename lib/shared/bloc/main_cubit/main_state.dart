@@ -3,6 +3,9 @@
 import 'package:newnew/model/admin_model/get_missing_person.dart';
 import 'package:newnew/model/admin_model/get_search_for_family.dart';
 import 'package:newnew/model/admin_model/get_things.dart';
+import 'package:newnew/model/admin_model/not_accept_missing_model.dart';
+import 'package:newnew/model/admin_model/not_accept_search_for_family_model.dart';
+import 'package:newnew/model/admin_model/not_accept_tthings_model.dart';
 import 'package:newnew/model/get_model/get_all_person_model.dart';
 import 'package:newnew/model/get_model/get_all_things_model.dart';
 import 'package:newnew/model/get_model/old_ten_model.dart';
@@ -250,3 +253,35 @@ class AdminCaseAcceptLoadingState extends MainState {}
 class AdminCaseAcceptSuccessState extends MainState {
 }
 class AdminCaseAcceptErrorState extends MainState {}
+
+class AdminThingsAcceptLoadingState extends MainState {}
+class AdminThingsAcceptSuccessState extends MainState {
+}
+class AdminThingsAcceptErrorState extends MainState {}
+
+class AdminSearchForFamilyAcceptLoadingState extends MainState {}
+class AdminSearchForFamilyAcceptSuccessState extends MainState {
+}
+class AdminSearchForFamilyAcceptErrorState extends MainState {}
+
+// admin rejected case
+class RejectedMissingLoadingState extends MainState {}
+class RejectedMissingSuccessState extends MainState {
+  late MissingRejectAdmin missingRejectAdmin;
+  RejectedMissingSuccessState(this.missingRejectAdmin);
+}
+class RejectedMissingErrorState extends MainState {}
+// search for family
+class RejectedSearchForFamilyLoadingState extends MainState {}
+class RejectedSearchForFamilySuccessState extends MainState {
+  late SearchFamilyRejectAdmin searchFamilyRejectAdmin;
+  RejectedSearchForFamilySuccessState(this.searchFamilyRejectAdmin);
+}
+class RejectedSearchForFamilyErrorState extends MainState {}
+//things
+class RejectedThingsLoadingState extends MainState {}
+class RejectedThingsSuccessState extends MainState {
+  late ThingsRejectAdmin thingsRejectAdmin;
+  RejectedThingsSuccessState(this.thingsRejectAdmin);
+}
+class RejectedThingsErrorState extends MainState {}

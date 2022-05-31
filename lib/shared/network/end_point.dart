@@ -58,3 +58,11 @@ String deleteAdminMissingCaseUrl="/Admin/adminDeletePerson/";
 String deleteAdminSearchForFamilyCaseUrl="/Admin/adminDeletePersonF/";
 String deleteAdminThingsCaseUrl="/Admin/adminDeleteThings/";
 
+String acceptAdminThingsCaseUrl="/Admin/adminAcceptThings/";
+String acceptAdminMissingCaseUrl="/Admin/adminAcceptPerson/";
+String acceptAdminSearchForFamilyCaseUrl="/Admin/adminAcceptPersonF/";
+
+String rejectedAdminSearchForFamilyCaseUrl="/Admin/adminRejectPersonF/";
+String rejectedAdminMissingCaseUrl="/Admin/adminRejectPerson/";
+String rejectedAdminThingsCaseUrl="/Admin/adminRejectThings/";
+
