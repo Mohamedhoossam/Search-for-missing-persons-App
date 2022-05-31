@@ -1,9 +1,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newnew/modules/admin_screen/admin_screen.dart';
 import 'package:newnew/modules/user_screen/aboutus_screen.dart';
 import 'package:newnew/modules/user_screen/contactus_screen.dart';
-import 'package:newnew/modules/user_screen/user_profile/profile_screen.dart';
 import 'package:newnew/modules/user_screen/setting_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
@@ -111,7 +111,7 @@ class LayoutScreen extends StatelessWidget {
               textColor: Colors.white,
               iconColor: Colors.white,
               onTap: (){
-                navigateTo(context, const ProfileScreen());
+                navigateTo(context,  AdminScreen());
               },
             ),
             ListTile(
