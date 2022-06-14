@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newnew/modules/admin_screen/admin_screen.dart';
 import 'package:newnew/modules/user_screen/aboutus_screen.dart';
 import 'package:newnew/modules/user_screen/contactus_screen.dart';
 import 'package:newnew/modules/user_screen/setting_screen.dart';
@@ -8,6 +9,7 @@ import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
 import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/constant.dart';
+import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
 
@@ -115,6 +117,21 @@ class LayoutScreen extends StatelessWidget {
                 navigateTo(context,  const UserCaseScreen());
               },
             ),
+            if(CacheHelper.getData(key: 'role')=='admin')
+            ListTile(
+              leading: const Icon(Icons.admin_panel_settings_outlined),
+              title: const Text('Adimn',style: TextStyle(fontFamily: 'jannah',fontSize: 14),),
+              textColor: Colors.white,
+              iconColor: Colors.white,
+              onTap: (){
+                cubit.getAdminThingsCase();
+                cubit.getAdminSearchForFamilyCase();
+                cubit.getAdminMissingCase();
+                navigateTo(context, AdminScreen());
+
+              },
+            ),
+
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Setting',style: TextStyle(fontFamily: 'jannah',fontSize: 14),),

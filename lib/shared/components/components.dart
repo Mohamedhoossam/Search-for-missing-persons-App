@@ -94,9 +94,15 @@ Widget defaultFormField({
   Color? cursorColor,
   Color? counterColor,
   int? maxLength,
+  FocusNode? focusNode,
+  Function()? onEditingComplete,
+  TextInputAction? textInputAction,
+
 
 }) => TextFormField(
   controller:controller,
+  onEditingComplete:onEditingComplete ,
+
   keyboardType: type,
   obscureText: isPassword,
   onFieldSubmitted :oSubmit,
@@ -106,9 +112,11 @@ Widget defaultFormField({
   enabled: isClickable,
   readOnly:lockKeyboard ,
   maxLength: maxLength,
+  textInputAction: textInputAction,
   cursorColor:cursorColor??defaultColor,
   cursorWidth: 2,
   cursorHeight: 25,
+  focusNode:focusNode ,
 
   style: TextStyle(color:textColor??defaultColor,),
   maxLines: maxLines??1,
@@ -213,15 +221,24 @@ Widget defaultFormField2({
   VoidCallback? suffixPressed ,
   int? maxLines,
   int? maxLength,
+  FocusNode? focusNode,
+Function()? onEditingComplete,
+  TextInputAction? textInputAction,
+
+
+
 }) => TextFormField(
   controller: controller,
 
   keyboardType: type,
+  focusNode:focusNode ,
+  onEditingComplete:onEditingComplete ,
   obscureText: isPassword,
   onFieldSubmitted :oSubmit,
   maxLength: maxLength ,
   onChanged: onChange,
   validator: validate,
+  textInputAction: textInputAction,
   onTap: onTap,
   enabled: isClickable,
   readOnly:lockKeyboard ,

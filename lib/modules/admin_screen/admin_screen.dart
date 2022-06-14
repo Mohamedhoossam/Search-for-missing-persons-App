@@ -44,8 +44,8 @@ class AdminScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
-                      Text('P',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
-                      const Text('rofile',),
+                      Text('A',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
+                      const Text('dmin',),
                     ],),
                   leading:IconButton(
                     icon: const Icon(IconBroken.Arrow___Left),
@@ -57,6 +57,7 @@ class AdminScreen extends StatelessWidget {
                   bottom: TabBar(
                     indicatorColor: defaultColor,
                     physics: const BouncingScrollPhysics(),
+                  //  isScrollable: true,
                     tabs: [
                       Tab(
                         child: Text(
@@ -64,7 +65,7 @@ class AdminScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: defaultColor,
-                              fontSize: 16
+                              fontSize: 14
                           ),
 
                         ),
@@ -76,7 +77,7 @@ class AdminScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: defaultColor,
-                              fontSize: 16
+                              fontSize: 14
                           ),
 
                         ),
@@ -88,7 +89,7 @@ class AdminScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: defaultColor,
-                              fontSize: 16
+                              fontSize: 14
                           ),
 
                         ),
