@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:newnew/missing_layout/layout.dart';
 import 'package:newnew/shared/bloc/login_register_cubit/login_cubit.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
@@ -16,11 +17,15 @@ import 'login_screen.dart';
 // ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
 
-  var emailController =TextEditingController();
-  var nameController =TextEditingController();
-  var configPasswordController =TextEditingController();
-  var passwordController =TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final emailController =TextEditingController();
+  final nameController =TextEditingController();
+  final configPasswordController =TextEditingController();
+  final passwordController =TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final _emailFocusNode = FocusNode();
+  final _userNameFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+  final _confirmPasswordFocusNode = FocusNode();
   bool isPassword = true;
 
   RegisterScreen({Key? key}) : super(key: key);
@@ -40,10 +45,10 @@ class RegisterScreen extends StatelessWidget {
     final Size size =MediaQuery.of(context).size;
     return BlocConsumer<LoginCubit, LoginState>(
   listener: (context, state) {
-    if(state is SignupSuccessState){
-      if(state.registerDataModel.status == "success"){
+    if(state is LoginSuccessState){
+      if(state.userDataModel.status == "success"){
         Fluttertoast.showToast(
-          msg:state.registerDataModel.message!,
+          msg:state.userDataModel.message!,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 2,
@@ -51,19 +56,24 @@ class RegisterScreen extends StatelessWidget {
           textColor: Colors.white,
           fontSize: 16.0,
 
-        );
+        ).then((value) {
+          navigateToAndRemove(context,  LayoutScreen());
+        });
       }
-      if(state.registerDataModel.status == "fail"){
+      if(state.userDataModel.status == "fail"){
         Fluttertoast.showToast(
-          msg:state.registerDataModel.message!,
-          toastLength: Toast.LENGTH_LONG,
+          msg:state.userDataModel.message!,
+          toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 2,
+          timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0,
+
+
         );
       }
+
     }
 
   },
@@ -110,9 +120,13 @@ class RegisterScreen extends StatelessWidget {
                   defaultFormField(
                     controller: nameController,
                     hint: 'JhonWilliams',
+                    focusNode: _userNameFocusNode,
+                    textInputAction: TextInputAction.next,
 
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_emailFocusNode),
                     prefix: IconBroken.Profile,
                     type: TextInputType.emailAddress,
+
                     validate: (value){
                       if(value!.isEmpty){
                         return 'user name must not be empty';
@@ -133,8 +147,10 @@ class RegisterScreen extends StatelessWidget {
                   defaultFormField(
                       controller: emailController,
                       hint: 'Jhonewilliams@gmail.com',
-
-                      prefix: IconBroken.Message,
+                      focusNode: _emailFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_passwordFocusNode),
+                    prefix: IconBroken.Message,
                       type: TextInputType.emailAddress,
                       validate: (value){
                         if(value!.isEmpty){
@@ -153,6 +169,9 @@ class RegisterScreen extends StatelessWidget {
                   defaultFormField(
                       controller: passwordController,
                       hint: 'Password',
+                      focusNode: _passwordFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_confirmPasswordFocusNode),
                       prefix: IconBroken.Lock,
                       type: TextInputType.visiblePassword,
                       validate: (value){
@@ -180,6 +199,8 @@ class RegisterScreen extends StatelessWidget {
                   defaultFormField(
                       controller: configPasswordController,
                       hint: 'ConfirmPassword',
+                      focusNode: _confirmPasswordFocusNode,
+                      textInputAction: TextInputAction.done,
                       prefix: IconBroken.Lock,
                       type: TextInputType.visiblePassword,
                       validate: (value){

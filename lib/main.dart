@@ -18,6 +18,7 @@ void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   await CacheHelper.init();
+
   bool onBoarding =CacheHelper.getData(key: 'onboarding') ?? false;
   token=CacheHelper.getData(key: 'token')??'';
   print(token);

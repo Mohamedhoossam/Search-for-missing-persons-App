@@ -2,14 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newnew/model/user_auth_model/forget_password_model.dart';
-import 'package:newnew/model/user_auth_model/register_model.dart';
 import 'package:newnew/model/user_auth_model/reset_password_model.dart';
 import 'package:newnew/model/user_auth_model/user_model.dart';
 import 'package:newnew/model/user_auth_model/verify_code_model.dart';
-import 'package:newnew/modules/user_authentication/login_screen.dart';
 import 'package:newnew/shared/bloc/login_register_cubit/login_state.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
-import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/constant.dart';
 import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/network/dio.dart';
@@ -49,6 +46,7 @@ late UserDataModel userDataModel;
         "email": email,
         "password": password
       });
+      CacheHelper.saveData(key: 'role', value: response.data['data']['role']);
       userDataModel=UserDataModel.fromJson(response.data);
       token=userDataModel.token!;
       CacheHelper.saveData(key: 'token', value: userDataModel.token!);
@@ -72,7 +70,7 @@ late UserDataModel userDataModel;
   }
 
 
-  late RegisterDataModel registerDataModel;
+  //late RegisterDataModel registerDataModel;
   void signUpPostData(
       {
         required name,
@@ -90,18 +88,30 @@ late UserDataModel userDataModel;
         "password":password,
         "passwordConfirm":passwordConfirm,
       });
-      registerDataModel=RegisterDataModel.fromJson(response.data);
-      //await Future.delayed(const Duration(seconds: 1));
-      navigateToAndRemove(context, LoginScreen());
-      emit(SignupSuccessState(registerDataModel));
+      // registerDataModel=RegisterDataModel.fromJson(response.data);
+      // navigateToAndRemove(context, LoginScreen());
+      // emit(SignupSuccessState(registerDataModel));
+      CacheHelper.saveData(key: 'role', value: response.data['data']['role']);
+      userDataModel=UserDataModel.fromJson(response.data);
+      token=userDataModel.token!;
+      CacheHelper.saveData(key: 'token', value: userDataModel.token!);
+      emit(LoginSuccessState(userDataModel));
+      MainCubit.get(context).currentIndex=0;
+      MainCubit.get(context).getProfile();
+      MainCubit.get(context).getUserMissingCase();
+      MainCubit.get(context).getUserSearchForFamilyCase();
+      MainCubit.get(context).getUserThingsCase();
 
 
 
 
     }on DioError catch(e){
 
-      registerDataModel=RegisterDataModel.fromJson(e.response!.data);
-      emit(SignupSuccessState(registerDataModel));
+      // registerDataModel=RegisterDataModel.fromJson(e.response!.data);
+      // emit(SignupSuccessState(registerDataModel));
+
+      userDataModel=UserDataModel.fromJson(e.response!.data);
+      emit(LoginSuccessState(userDataModel));
 
 
     }catch(e){

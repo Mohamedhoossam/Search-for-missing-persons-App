@@ -1213,18 +1213,19 @@ void getOldTenPerson()async{
     try{
       var response = await DioHelper.postData(url:searchByImageUrl,
           data:formData,token: token);
-      print(response.data);
       searchByImageModel=SearchByImageModel.fromJson(response.data);
       emit(SearchByImageSuccessState());
 
     }on DioError catch(e){
-      searchByImageModel!.data=[];
+      searchByImageModel != null?searchByImageModel!.data=[]:null;
       showToast(text: 'Not Found try Again 😅', state: ToastStates.ERROR);
       searchByImage = null;
       emit(SearchByImageSuccessState());
 
     }catch(e){
       emit(SearchByImageErrorState());
+
+
 
     }
   }
@@ -1288,7 +1289,6 @@ void getOldTenPerson()async{
           url: missingFoundUrl+id,
           token: token, data: null,
       );
-      print(response.data);
       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
 
 
@@ -1297,7 +1297,6 @@ void getOldTenPerson()async{
       getAllPerson();
 
     }on DioError catch(e){
-      print(e.response!.data);
       showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
 
 
@@ -1322,7 +1321,6 @@ void getOldTenPerson()async{
         url: searchFamilyFoundUrl+id,
         token: token, data: null,
       );
-      print(response.data);
       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
       emit(UserCaseFoundSuccessState());
       getUserSearchForFamilyCase();
@@ -1352,7 +1350,6 @@ void getOldTenPerson()async{
         url: thingsFoundUrl+id,
         token: token, data: null,
       );
-      print(response.data);
       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
       emit(UserCaseFoundSuccessState());
       getUserThingsCase();
@@ -1378,7 +1375,6 @@ void counterFound()async{
       url: counterFoundUrl,
     );
     emit(CounterCaseFoundSuccessState());
-    print(response.data);
 
   }catch(e){
     emit(CounterCaseFoundErrorState());
@@ -1408,7 +1404,6 @@ void counterFound()async{
 
       adminMissingPersonModel=AdminMissingPersonModel.fromJson(e.response!.data);
       emit(GetAdminMissingCaseSuccessState(adminMissingPersonModel!));
-      print('20202020202020202020');
 
     }catch(e){
       emit(GetAdminMissingCaseErrorState());
@@ -1459,20 +1454,18 @@ void counterFound()async{
           url: getAminThingsCaseUrl,
           token: token
       );
-      print('///////////////////////////////////');
-      print(response.data);
-      print('///////////////////////////////////');
+
       adminThingsModel=AdminThingsModel.fromJson(response.data);
 
       emit(GetAdminThingsCaseSuccessState(adminThingsModel!));
-      print('successssss');
+
 
     }on DioError catch(e){
 
       adminThingsModel=AdminThingsModel.fromJson(e.response!.data);
 
       emit(GetAdminThingsCaseSuccessState(adminThingsModel!));
-      print('erorrrrrrrrr');
+
 
 
     }catch(e){
@@ -1579,14 +1572,12 @@ void counterFound()async{
       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
       getAdminMissingCase();
       emit(AdminCaseAcceptSuccessState());
-      print('55555555555555555555555555555');
-      print(response.data);
+
 
     }on DioError catch(e){
       showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
       emit(AdminCaseAcceptSuccessState());
-      print('7777777777777777777777');
-      print(e.response!.data);
+
     }catch(e){
       emit(AdminCaseAcceptErrorState());
     }
@@ -1609,14 +1600,11 @@ void counterFound()async{
       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
       getAdminThingsCase();
       emit(AdminThingsAcceptSuccessState());
-      print('55555555555555555555555555555');
-      print(response.data);
 
     }on DioError catch(e){
       showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
       emit(AdminThingsAcceptSuccessState());
-      print('7777777777777777777777');
-      print(e.response!.data);
+
     }catch(e){
       emit(AdminThingsAcceptErrorState());
     }
@@ -1639,14 +1627,12 @@ void counterFound()async{
       showToast(text:response.data['message'], state: ToastStates.SUCCESS);
       getAdminSearchForFamilyCase();
       emit(AdminSearchForFamilyAcceptSuccessState());
-      print('55555555555555555555555555555');
-      print(response.data);
+
 
     }on DioError catch(e){
       showToast(text:e.response!.data['message'], state: ToastStates.ERROR);
       emit(AdminSearchForFamilyAcceptSuccessState());
-      print('7777777777777777777777');
-      print(e.response!.data);
+
     }catch(e){
       emit(AdminSearchForFamilyAcceptErrorState());
     }

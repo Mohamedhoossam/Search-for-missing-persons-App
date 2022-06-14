@@ -17,9 +17,11 @@ import '../../shared/bloc/login_register_cubit/login_state.dart';
 
 
 class LoginScreen extends StatelessWidget {
-  var emailController =TextEditingController();
-  var passwordController =TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final emailController =TextEditingController();
+  final passwordController =TextEditingController();
+  final _emailFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+  final formKey = GlobalKey<FormState>();
 
   LoginScreen({Key? key}) : super(key: key);
   @override
@@ -143,6 +145,9 @@ class LoginScreen extends StatelessWidget {
                   defaultFormField(
                     controller: emailController,
                     hint: 'Example@gmail.com',
+                    focusNode: _emailFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_passwordFocusNode),
                     prefix: IconBroken.Message,
                     type: TextInputType.emailAddress,
                     validate: (value){
@@ -164,6 +169,8 @@ class LoginScreen extends StatelessWidget {
                   defaultFormField(
                       controller: passwordController,
                       hint: 'Password',
+                      focusNode: _passwordFocusNode,
+                      textInputAction: TextInputAction.done,
                       prefix: IconBroken.Lock,
                       type: TextInputType.visiblePassword,
                       validate: (value){
