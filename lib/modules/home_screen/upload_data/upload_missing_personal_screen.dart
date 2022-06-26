@@ -23,6 +23,24 @@ class UploadMissingPersonalScreen extends StatelessWidget {
   var accidentController = TextEditingController();
   var messengerUserNameController = TextEditingController();
   var yearOfBirthController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _fatherNameFocusNode = FocusNode();
+  final _motherNameFocusNode = FocusNode();
+  final _weightFocusNode = FocusNode();
+  final _heightFocusNode = FocusNode();
+  final _characteristicsFocusNode = FocusNode();
+  final _lastSeenFocusNode = FocusNode();
+  final _cityFocusNode = FocusNode();
+  final _countryFocusNode = FocusNode();
+  final _stateFocusNode = FocusNode();
+  final _accidentFocusNode = FocusNode();
+  final _yearOfBirthFocusNode = FocusNode();
+  final _gender = FocusNode();
+  final _selectNationality = FocusNode();
+  final _messengerUserNameFocusNode = FocusNode();
+  final _teleNum = FocusNode();
+  final _whatsapp = FocusNode();
+
   String? phoneNum;
   String? whatsNum;
 
@@ -91,6 +109,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
             defaultFormField(
 
                 controller: nameController,
+                focusNode: _nameFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_fatherNameFocusNode),
                 type: TextInputType.name,
                 hint: "name",
                 validate: (value){
@@ -102,6 +123,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
             const  SizedBox(height: 10,),
             defaultFormField(
                 controller: fatherNameController,
+                focusNode: _fatherNameFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_motherNameFocusNode),
                 type: TextInputType.name,
                 hint: "Father name",
                 validate: (value){
@@ -113,6 +137,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
             const  SizedBox(height: 10,),
             defaultFormField(
                 controller: motherNameController,
+                focusNode: _motherNameFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_gender),
                 type: TextInputType.name,
                 hint: "Mother name",
                 validate: (value){
@@ -124,6 +151,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
             const  SizedBox(height: 10,),
 
             dropDownButtonFormField(
+                focusNode: _gender,
                 change: changeGender,
                 value: ganderValue,
                 hintColor: Colors.grey,
@@ -141,6 +169,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
             const  SizedBox(height: 10,),
             defaultFormField(
               controller: yearOfBirthController,
+              focusNode: _yearOfBirthFocusNode,
+              textInputAction: TextInputAction.next,
+              onEditingComplete: ()=>FocusScope.of(context).requestFocus(_weightFocusNode),
               type: TextInputType.number,
               hint: "yearOfBirth",
               validate: (value){
@@ -163,6 +194,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               Expanded(
                 child: defaultFormField(
                   controller: weightController,
+                  focusNode: _weightFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_heightFocusNode),
                   type: TextInputType.number,
                   hint: "weight",
                   counterText: 'Kg',
@@ -180,6 +214,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               Expanded(
                 child: defaultFormField(
                   controller: heightController,
+                  focusNode: _heightFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_selectNationality),
                   type: TextInputType.number,
                   hint: "height",
                   counterText: "Cm",
@@ -194,6 +231,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               ),
             ],),
             dropDownButtonFormField(
+                focusNode: _selectNationality,
                 change: changeCountry,
                 value: countryName,
                 hintColor: Colors.grey,
@@ -229,6 +267,8 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               const SizedBox(height: 20,),
 
               defaultFormField(
+                focusNode: _characteristicsFocusNode,
+                textInputAction: TextInputAction.next,
                 controller: characteristicsController,
                 maxLines: 5,
                 type: TextInputType.multiline,
@@ -306,6 +346,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               const SizedBox(height: 20,),
               defaultFormField(
                   controller: lastSeenController,
+                  focusNode: _lastSeenFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_countryFocusNode),
                   type: TextInputType.none,
                   lockKeyboard: true,
                   hint: 'dd/mm/yyyy',
@@ -344,7 +387,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               defaultFormField(
                   controller: countryController,
                   type: TextInputType.text,
-
+                  focusNode: _countryFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_stateFocusNode),
                   hint: "Country",
                   validate: (value){
                     if(value!.isEmpty){
@@ -358,8 +403,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                   controller: stateController,
                   type: TextInputType.text,
                   hint: "state",
-
-
+                  focusNode: _stateFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_cityFocusNode),
                   validate: (value){
                     if(value!.isEmpty){
                       return 'required';
@@ -370,6 +416,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
 
               defaultFormField(
                   controller: cityController,
+                  focusNode: _cityFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_accidentFocusNode),
                   type: TextInputType.text,
                   hint: "City",
                   validate: (value){
@@ -382,6 +431,8 @@ class UploadMissingPersonalScreen extends StatelessWidget {
 
               defaultFormField(
                 controller: accidentController,
+                focusNode: _accidentFocusNode,
+                textInputAction: TextInputAction.next,
                 type: TextInputType.text,
                 hint: "Information about the accident",
                 maxLines: 5,
@@ -403,6 +454,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
           child: Column(children: [
             const SizedBox(height: 20,),
             IntlPhoneField(
+              focusNode:_teleNum ,
+              textInputAction: TextInputAction.next,
+              onSubmitted:(String)=>FocusScope.of(context).requestFocus(_whatsapp),
               decoration: const InputDecoration(
                 hintText: 'Phone',
                 hintStyle: TextStyle(
@@ -424,10 +478,11 @@ class UploadMissingPersonalScreen extends StatelessWidget {
 
             ),
             IntlPhoneField(
+              focusNode:_whatsapp ,
+              textInputAction: TextInputAction.next,
+              onSubmitted:(String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
               decoration: const InputDecoration(
                 hintText: 'Whatsapp number',
-
-
                 hintStyle: TextStyle(
                   color: Colors.grey,
                   fontSize: 15,
@@ -446,6 +501,8 @@ class UploadMissingPersonalScreen extends StatelessWidget {
             ),
             defaultFormField(
                 controller: messengerUserNameController,
+                focusNode:_messengerUserNameFocusNode ,
+                textInputAction: TextInputAction.next,
                 type: TextInputType.name,
                 hint: "MessengerUserName",
                 validate: (value){

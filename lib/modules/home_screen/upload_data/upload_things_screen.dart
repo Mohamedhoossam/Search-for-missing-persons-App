@@ -17,6 +17,17 @@ class UploadSearchForThingsScreen extends StatelessWidget {
   var descriptionController = TextEditingController();
   var locationController = TextEditingController();
   var lastSeenController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _modelFocusNode = FocusNode();
+  final _descriptionFocusNode = FocusNode();
+  final _locationFocusNode = FocusNode();
+  final _lastSeenFocusNode = FocusNode();
+  final _selectState = FocusNode();
+  final _selectType = FocusNode();
+  final _selectColor = FocusNode();
+  final _messengerUserNameFocusNode = FocusNode();
+  final _phoneNum = FocusNode();
+  final _whatsapp = FocusNode();
   String? phoneNum;
   String? whatsNum;
 
@@ -88,6 +99,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                 defaultFormField(
                     controller: nameController,
+                    focusNode: _nameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_selectType),
                     type: TextInputType.name,
                     hint: "name",
                     validate: (value){
@@ -99,6 +113,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                 const  SizedBox(height: 10,),
                 dropDownButtonFormField(
+                    focusNode: _selectType,
                     change: changeType,
                     value: typeValue,
                     hintColor: Colors.grey,
@@ -117,6 +132,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
 
                 dropDownButtonFormField(
+                    focusNode: _selectState,
                     change: changeState,
                     value: stateValue,
                     hintColor: Colors.grey,
@@ -134,6 +150,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: modelController,
+                    focusNode: _modelFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_selectColor),
                     type: TextInputType.number,
                     hint: "model",
                     validate: (value){
@@ -147,6 +166,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                 dropDownButtonFormField(
                     change: changeColor,
+                    focusNode: _selectColor,
                     value: colorName,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -195,6 +215,8 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                   defaultFormField(
                     controller: descriptionController,
+                    focusNode: _descriptionFocusNode,
+                    textInputAction: TextInputAction.next,
                     maxLines: 5,
                     type: TextInputType.multiline,
                     hint: "Description...",
@@ -271,6 +293,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                   const SizedBox(height: 20,),
                   defaultFormField(
                       controller: lastSeenController,
+                      focusNode: _lastSeenFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_locationFocusNode),
                       type: TextInputType.none,
                       lockKeyboard: true,
                       hint: 'dd/mm/yyyy',
@@ -308,8 +333,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: locationController,
+                      focusNode: _locationFocusNode,
+                      textInputAction: TextInputAction.next,
                       type: TextInputType.text,
-
                       hint: "Location",
                       validate: (value){
                         if(value!.isEmpty){
@@ -332,6 +358,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
               child: Column(children: [
                 const SizedBox(height: 20,),
                 IntlPhoneField(
+                  focusNode: _phoneNum,
+                  textInputAction: TextInputAction.next,
+                  onSubmitted: (String)=>FocusScope.of(context).requestFocus(_whatsapp),
                   decoration: const InputDecoration(
                     hintText: 'Phone',
                     hintStyle: TextStyle(
@@ -351,6 +380,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                 ),
                 IntlPhoneField(
+                  focusNode: _whatsapp,
+                  textInputAction: TextInputAction.next,
+                  onSubmitted: (String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
                   decoration: const InputDecoration(
                     hintText: 'Whatsapp number',
 
@@ -372,6 +404,8 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                 ),
                 defaultFormField(
                     controller: messengerUserNameController,
+                    focusNode: _messengerUserNameFocusNode,
+                    textInputAction: TextInputAction.next,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
                     validate: (value){
