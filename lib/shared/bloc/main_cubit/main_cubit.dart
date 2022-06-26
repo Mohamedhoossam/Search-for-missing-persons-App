@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -73,10 +74,13 @@ class MainCubit extends Cubit<MainState>{
   Future getProfileImage({required BuildContext context}) async{
     emit(ImageLoadingState());
     var pickerImage  = await profileImagePicker.pickImage(source: ImageSource.gallery);
+
     if(pickerImage != null){
       profileImage = File(pickerImage.path);
+    //  profileImage = await customCompressed(imagePathToCompress: searchByImage!);
       emit(ImageGetSuccessState());
     }
+
     else{
       ScaffoldMessenger.of(context).showSnackBar(
 
@@ -187,6 +191,14 @@ class MainCubit extends Cubit<MainState>{
     var pickerImage  = await personImagePicker.pickImage(source: ImageSource.gallery);
     if(pickerImage != null){
       personImage = File(pickerImage.path);
+      final sizeInKbAfter = personImage!.lengthSync()/1924;
+      if(sizeInKbAfter > 600){
+        personImage = await customCompressed(imagePathToCompress: personImage!);
+      }else{
+        personImage = personImage;
+      }
+
+
       emit(ImageGetSuccessState());
     }
     else{
@@ -291,6 +303,14 @@ class MainCubit extends Cubit<MainState>{
     var pickerImage  = await searchForFamilyPicker.pickImage(source: ImageSource.gallery);
     if(pickerImage != null){
       searchForFamilyImage = File(pickerImage.path);
+      final sizeInKbAfter = searchForFamilyImage!.lengthSync()/1924;
+      if(sizeInKbAfter > 600){
+        searchForFamilyImage = await customCompressed(imagePathToCompress: searchForFamilyImage!);
+      }else{
+        searchForFamilyImage = searchForFamilyImage;
+      }
+
+
       emit(ImageGetSuccessState());
     }
     else{
@@ -392,6 +412,15 @@ class MainCubit extends Cubit<MainState>{
     var pickerImage  = await missingThings.pickImage(source: ImageSource.gallery);
     if(pickerImage != null){
       missingThingsImage = File(pickerImage.path);
+      final sizeInKbAfter = missingThingsImage!.lengthSync()/1924;
+      if(sizeInKbAfter > 600){
+         missingThingsImage = await customCompressed(imagePathToCompress: missingThingsImage!);
+      }else{
+        missingThingsImage = missingThingsImage;
+      }
+
+
+
       emit(ImageGetSuccessState());
     }
     else{
@@ -1233,6 +1262,18 @@ void getOldTenPerson()async{
 
 
   //////////////////////////////////////////////////////
+  Future<File> customCompressed({
+  required File imagePathToCompress,
+})async{
+    var path = FlutterNativeImage.compressImage(
+      imagePathToCompress.absolute.path,
+      quality: 100,
+      percentage: 10,
+
+    );
+  return path;
+  }
+
   var searchByImagePicker = ImagePicker();
   File? searchByImage;
   Future getSearchByImageGallery({required BuildContext context}) async{
@@ -1241,8 +1282,10 @@ void getOldTenPerson()async{
     var pickerImage  = await searchByImagePicker.pickImage(source: ImageSource.gallery);
     if(pickerImage != null){
       searchByImage = File(pickerImage.path);
+      File compressedImage = await customCompressed(imagePathToCompress: searchByImage!);
+      searchByImagePost(photo:compressedImage );
       emit(ImageGetSuccessState());
-      searchByImagePost(photo:searchByImage );
+
     }
     else{
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1254,15 +1297,20 @@ void getOldTenPerson()async{
     }
 
   }
+
   Future getSearchByImageCamera({required BuildContext context}) async{
     Navigator.of(context).pop();
     emit(ImageLoadingState());
     var pickerImage  = await searchByImagePicker.pickImage(source: ImageSource.camera);
+
     if(pickerImage != null){
       searchByImage = File(pickerImage.path);
+      File compressedImage = await customCompressed(imagePathToCompress: searchByImage!);
+      final sizeInKbAfter = compressedImage.lengthSync()/1924;
+      searchByImagePost(photo:compressedImage);
       emit(ImageGetSuccessState());
-      searchByImagePost(photo:searchByImage);
     }
+
     else{
       ScaffoldMessenger.of(context).showSnackBar(
 
@@ -1735,6 +1783,16 @@ void counterFound()async{
       emit(RejectedThingsErrorState());
 
     }
+  }
+
+  void getAllAdmin(){
+    if(CacheHelper.getData(key: 'role')=='admin'){
+     getAdminMissingCase();
+      getAdminSearchForFamilyCase();
+     getAdminThingsCase();
+
+    }
+
   }
 
 ///////////////////end///////////////////////////////////////////

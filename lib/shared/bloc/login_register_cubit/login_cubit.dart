@@ -56,6 +56,11 @@ late UserDataModel userDataModel;
       MainCubit.get(context).getUserMissingCase();
       MainCubit.get(context).getUserSearchForFamilyCase();
       MainCubit.get(context).getUserThingsCase();
+      if(CacheHelper.getData(key: 'role')=='admin'){
+        MainCubit.get(context).getAdminMissingCase();
+        MainCubit.get(context).getAdminSearchForFamilyCase();
+        MainCubit.get(context).getAdminThingsCase();
+      }
 
 
 
