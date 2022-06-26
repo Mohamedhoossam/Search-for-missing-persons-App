@@ -91,8 +91,31 @@ class DescriptionScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Text('state : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model!.state!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor),),
+                        ],),
+                      SizedBox(height: height,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('city : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model!.city!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor),),
+                        ],),
+                      SizedBox(height: height,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
                           Text('Mother n : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
                           Text(model!.motherName!,
+                            style: TextStyle(fontSize: font,color: defaultColor,fontFamily: 'Jannah' ),
+                            maxLines: 2,overflow: TextOverflow.ellipsis,),
+                        ],),
+                      SizedBox(height: height,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Father n : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model!.fatherName!,
                             style: TextStyle(fontSize: font,color: defaultColor,fontFamily: 'Jannah' ),
                             maxLines: 2,overflow: TextOverflow.ellipsis,),
                         ],),
@@ -109,8 +132,16 @@ class DescriptionScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Colors : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
-                          Text('wheat',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
+                          Text('gender : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model.gender!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
+                        ],),
+                      SizedBox(height: height,),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Nationality : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model.nationality!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
                         ],),
                       SizedBox(height: height,),
                       Row(
@@ -128,13 +159,7 @@ class DescriptionScreen extends StatelessWidget {
                           Text('${model!.weight} kg',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
                         ],),
                       SizedBox(height: height,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text('Eye Colors : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
-                          Text('Black',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
-                        ],),
-                      SizedBox(height: height,),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -147,8 +172,15 @@ class DescriptionScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Phone num : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
-                          Text(model!.phone!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
+                          Text('circumstances : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model.circumstances!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
+                        ],),
+                      SizedBox(height: height,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('characteristics : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                          Text(model!.characteristics!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
 
                         ],),
                       SizedBox(height: height*5,),

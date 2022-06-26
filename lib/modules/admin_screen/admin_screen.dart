@@ -260,7 +260,7 @@ class AdminScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        condition: cubit.adminMissingPersonModel!.data!.isNotEmpty,
+                        condition: MainCubit.get(context).adminMissingPersonModel!.data!.isNotEmpty,
 
                       ),
                     ),
@@ -421,7 +421,7 @@ class AdminScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        condition: cubit.adminSearchForFamilyModel!.data!.isNotEmpty,
+                        condition: MainCubit.get(context).adminSearchForFamilyModel!.data!.isNotEmpty,
 
                       ),
                     ),
@@ -581,7 +581,7 @@ class AdminScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        condition: cubit.adminThingsModel!.data!.isNotEmpty,
+                        condition: MainCubit.get(context).adminThingsModel!.data!.isNotEmpty
 
                       ),
                     ),
