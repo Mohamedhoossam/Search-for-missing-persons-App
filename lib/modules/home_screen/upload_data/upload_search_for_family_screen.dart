@@ -387,7 +387,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   ),
 
 
-                  const  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
 
                   defaultFormField(
                       controller: countryController,

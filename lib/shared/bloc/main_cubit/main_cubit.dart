@@ -1282,8 +1282,13 @@ void getOldTenPerson()async{
     var pickerImage  = await searchByImagePicker.pickImage(source: ImageSource.gallery);
     if(pickerImage != null){
       searchByImage = File(pickerImage.path);
-      File compressedImage = await customCompressed(imagePathToCompress: searchByImage!);
-      searchByImagePost(photo:compressedImage );
+      final sizeInKbAfter = searchByImage!.lengthSync()/1924;
+      if(sizeInKbAfter > 600){
+        searchByImage = await customCompressed(imagePathToCompress: searchByImage!);
+      }else{
+        searchByImage = searchByImage;
+      }
+      searchByImagePost(photo:searchByImage );
       emit(ImageGetSuccessState());
 
     }
