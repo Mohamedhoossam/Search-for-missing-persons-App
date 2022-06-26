@@ -142,6 +142,13 @@ class DescriptionThingsScreen extends StatelessWidget {
                         const SizedBox(width: 10,),
                         Icon(IconBroken.Calendar,color: defaultColor,)
                       ],),
+                    SizedBox(height: height,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('Description : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
+                        Text(model.description,maxLines: 2,textAlign: TextAlign.start,style: TextStyle(fontFamily: 'Jannah',fontSize: 12,color: defaultColor, ),),
+                      ],),
                     SizedBox(height: height*5,),
                     Row(children:  [
                       const Expanded(child: Divider(color: Colors.grey,height: 1,)),
