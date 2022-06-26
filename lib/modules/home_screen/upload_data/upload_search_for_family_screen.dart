@@ -11,19 +11,36 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 // ignore: must_be_immutable
 class UploadSearchForFamilyScreen extends StatelessWidget {
-  var nameController = TextEditingController();
-  var fatherNameController = TextEditingController();
-  var motherNameController = TextEditingController();
-  var weightController = TextEditingController();
-  var heightController = TextEditingController();
-  var characteristicsController = TextEditingController();
-  var lastSeenController = TextEditingController();
-  var cityController = TextEditingController();
-  var countryController = TextEditingController();
-  var stateController = TextEditingController();
-  var accidentController = TextEditingController();
-  var messengerUserNameController = TextEditingController();
-  var yearOfBirthController = TextEditingController();
+  final nameController = TextEditingController();
+  final fatherNameController = TextEditingController();
+  final motherNameController = TextEditingController();
+  final weightController = TextEditingController();
+  final heightController = TextEditingController();
+  final characteristicsController = TextEditingController();
+  final lastSeenController = TextEditingController();
+  final cityController = TextEditingController();
+  final countryController = TextEditingController();
+  final stateController = TextEditingController();
+  final accidentController = TextEditingController();
+  final messengerUserNameController = TextEditingController();
+  final yearOfBirthController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _fatherNameFocusNode = FocusNode();
+  final _motherNameFocusNode = FocusNode();
+  final _weightFocusNode = FocusNode();
+  final _heightFocusNode = FocusNode();
+  final _characteristicsFocusNode = FocusNode();
+  final _lastSeenFocusNode = FocusNode();
+  final _cityFocusNode = FocusNode();
+  final _countryFocusNode = FocusNode();
+  final _stateFocusNode = FocusNode();
+  final _accidentFocusNode = FocusNode();
+  final _messengerUserNameFocusNode = FocusNode();
+  final _phoneFocusNode = FocusNode();
+  final _whatsNumberFocusNode = FocusNode();
+  final _nationalityFocusNode = FocusNode();
+  final _yearOfBirthFocusNode = FocusNode();
+  final _gender = FocusNode();
   String? phoneNum;
   String? whatsNum;
 
@@ -95,28 +112,41 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     controller: nameController,
                     type: TextInputType.name,
                     hint: "name",
+                    focusNode: _nameFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_fatherNameFocusNode),
+                    textInputAction:TextInputAction.next ,
                     validate: (value){
                       if(value!.isEmpty){
                          return 'required';
                       }
                       return null;
                     }, prefix: IconBroken.Profile),
+
                 const  SizedBox(height: 10,),
+
                 defaultFormField(
                     controller: fatherNameController,
                     type: TextInputType.name,
                     hint: "Father name",
+                    focusNode: _fatherNameFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_motherNameFocusNode),
+                    textInputAction:TextInputAction.next ,
                     validate: (value){
                       if(value!.isEmpty){
                         return 'required';
                       }
                       return null;
                     }, prefix: IconBroken.Profile),
+
                 const  SizedBox(height: 10,),
+
                 defaultFormField(
                     controller: motherNameController,
                     type: TextInputType.name,
                     hint: "Mother name",
+                    focusNode: _motherNameFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_gender),
+                    textInputAction:TextInputAction.next ,
                     validate: (value){
                       if(value!.isEmpty){
                         return 'required';
@@ -132,6 +162,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     prefixIcon: IconBroken.Filter_2,
                     itemsList: <String>['male','female'],
                     hintText: 'select gender',
+                    focusNode: _gender,
+
                     validate: (value){
                      //  if(value.isEmpty){
                      //   // return 'required';
@@ -145,6 +177,9 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   controller: yearOfBirthController,
                   type: TextInputType.number,
                   hint: "yearOfBirth",
+                  focusNode: _yearOfBirthFocusNode,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_weightFocusNode),
+                  textInputAction:TextInputAction.next ,
                   validate: (value){
                     if(value!.isEmpty){
                       return 'required';
@@ -168,7 +203,9 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       type: TextInputType.number,
                       hint: "weight",
                       counterText: 'Kg',
-
+                      focusNode: _weightFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_heightFocusNode),
+                      textInputAction:TextInputAction.next ,
                       validate: (value){
                         if(value!.isEmpty){
                           //  return 'required';
@@ -185,6 +222,9 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       type: TextInputType.number,
                       hint: "height",
                       counterText: "Cm",
+                      focusNode: _heightFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_nationalityFocusNode),
+                      textInputAction:TextInputAction.next,
                       validate: (value){
                         if(value!.isEmpty){
                           //  return 'required';
@@ -200,6 +240,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     value: countryName,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
+                    focusNode: _nationalityFocusNode,
                     itemsList: <String>['Egypt','Palestine','Tunisia','Algeria','Morocco'
                       ,'Iraq','Syria','Yemen','Libya','Jordan','Emirates','Lebanon'
                       ,'Mauritania','Kuwait','Oman','Qatar','Jubbuti','Bahrain','Union of Comoros'
@@ -235,6 +276,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     maxLines: 5,
                     type: TextInputType.multiline,
                     hint: "Some distinguishing signs, if any, such as blind or mentally disturbed ...",
+                    focusNode: _characteristicsFocusNode,
+                    textInputAction:TextInputAction.done,
                     validate: (value){
                       if(value!.isEmpty){
                           return 'required';
@@ -311,6 +354,9 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       type: TextInputType.none,
                       lockKeyboard: true,
                       hint: 'dd/mm/yyyy',
+                      focusNode: _lastSeenFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_countryFocusNode),
+                      textInputAction:TextInputAction.next ,
                       validate: (value){
                         if(value!.isEmpty){
                           return 'required';
@@ -346,8 +392,10 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   defaultFormField(
                       controller: countryController,
                       type: TextInputType.text,
-
                       hint: "Country",
+                      focusNode: _countryFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_stateFocusNode),
+                      textInputAction:TextInputAction.next ,
                       validate: (value){
                         if(value!.isEmpty){
                           return 'required';
@@ -360,8 +408,9 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       controller: stateController,
                       type: TextInputType.text,
                       hint: "state",
-
-
+                      focusNode: _stateFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_cityFocusNode),
+                      textInputAction:TextInputAction.next,
                       validate: (value){
                         if(value!.isEmpty){
                           return 'required';
@@ -374,6 +423,9 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       controller: cityController,
                       type: TextInputType.text,
                       hint: "City",
+                      focusNode: _cityFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_accidentFocusNode),
+                      textInputAction:TextInputAction.next ,
                       validate: (value){
                         if(value!.isEmpty){
                           return 'required';
@@ -386,7 +438,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     controller: accidentController,
                     type: TextInputType.text,
                     hint: "Information about the accident",
-
+                    focusNode: _accidentFocusNode,
+                    textInputAction:TextInputAction.done ,
                     maxLines: 5,
                     validate: (value){
                       if(value!.isEmpty){
@@ -406,8 +459,12 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
               child: Column(children: [
                 const SizedBox(height: 20,),
                 IntlPhoneField(
+                  focusNode: _phoneFocusNode,
+                  onSubmitted: (String)=>FocusScope.of(context).requestFocus(_whatsNumberFocusNode),
+                  textInputAction:TextInputAction.next,
                   decoration: const InputDecoration(
                     hintText: 'Phone',
+
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -426,9 +483,11 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
 
                 ),
                 IntlPhoneField(
+                  focusNode: _whatsNumberFocusNode,
+                  onSubmitted: (String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
+                  textInputAction:TextInputAction.next ,
                   decoration: const InputDecoration(
                     hintText: 'Whatsapp number',
-
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -451,6 +510,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     controller: messengerUserNameController,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
+                    focusNode: _messengerUserNameFocusNode,
+                    textInputAction:TextInputAction.done ,
                     validate: (value){
                       if(value!.isEmpty){
                         // return 'required';

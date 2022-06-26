@@ -748,6 +748,7 @@ Widget dropDownButtonFormField({
   required List<String> itemsList,
   required String hintText,
    required FormFieldValidator validate,
+  FocusNode?focusNode,
 
 })=> DropdownButtonFormField<String>(
   items: itemsList.map<DropdownMenuItem<String>>((String value){
@@ -764,9 +765,12 @@ Widget dropDownButtonFormField({
   value: value,
   onChanged:change,
   validator:validate,
+  focusNode:focusNode ,
+
   style: TextStyle(color: defaultColor,),
   decoration: InputDecoration(
       focusColor: defaultColor,
+
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15),
         borderSide: BorderSide(
