@@ -748,10 +748,12 @@ Widget dropDownButtonFormField({
   required List<String> itemsList,
   required String hintText,
    required FormFieldValidator validate,
+  FocusNode? focusNode,
 
 })=> DropdownButtonFormField<String>(
   items: itemsList.map<DropdownMenuItem<String>>((String value){
     return DropdownMenuItem<String>(
+
       child:  Row(
         children: [
           Text(value),
@@ -760,7 +762,7 @@ Widget dropDownButtonFormField({
       value: value,
     );
   } ).toList(),
-
+  focusNode: focusNode,
   value: value,
   onChanged:change,
   validator:validate,
