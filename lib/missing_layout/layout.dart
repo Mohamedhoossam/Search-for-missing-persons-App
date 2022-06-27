@@ -5,6 +5,7 @@ import 'package:newnew/modules/admin_screen/admin_screen.dart';
 import 'package:newnew/modules/user_screen/aboutus_screen.dart';
 import 'package:newnew/modules/user_screen/contactus_screen.dart';
 import 'package:newnew/modules/user_screen/setting_screen.dart';
+import 'package:newnew/modules/user_screen/user_profile/profile_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
 import 'package:newnew/shared/components/components.dart';
@@ -114,7 +115,7 @@ class LayoutScreen extends StatelessWidget {
               textColor: Colors.white,
               iconColor: Colors.white,
               onTap: (){
-                navigateTo(context,  const UserCaseScreen());
+                navigateTo(context,  const ProfileScreen());
               },
             ),
             if(CacheHelper.getData(key: 'role')=='admin')

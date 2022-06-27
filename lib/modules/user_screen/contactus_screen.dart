@@ -9,11 +9,16 @@ import 'package:newnew/shared/style/icon_broken.dart';
 
 class ContactUsScreen extends StatelessWidget {
 
-  var messageController = TextEditingController();
-  var emailController = TextEditingController();
-  var phoneController = TextEditingController();
-  var subjectController = TextEditingController();
-  var nameController = TextEditingController();
+  final messageController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final subjectController = TextEditingController();
+  final nameController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _phoneNumFocusNode = FocusNode();
+  final _subjectFocusNode = FocusNode();
+  final _messageFocusNode = FocusNode();
   var keyForm = GlobalKey<FormState>();
   ContactUsScreen({Key? key}) : super(key: key);
   @override
@@ -110,17 +115,25 @@ class ContactUsScreen extends StatelessWidget {
                 controller:nameController ,
                 type: TextInputType.name,
                 hint: 'Name',
+                focusNode: _nameFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_emailFocusNode),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Required';
                   }
                   return null;
-                }),
+                }
+
+                ),
             const SizedBox(height: 8,),
             defaultFormField2(
                 controller:emailController ,
                 type: TextInputType.emailAddress,
                 hint: 'Email',
+                focusNode: _emailFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_phoneNumFocusNode),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Required';
@@ -132,6 +145,9 @@ class ContactUsScreen extends StatelessWidget {
                 controller:phoneController ,
                 type: TextInputType.phone,
                 hint: 'Phone num',
+                focusNode: _phoneNumFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_subjectFocusNode),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Required';
@@ -143,6 +159,9 @@ class ContactUsScreen extends StatelessWidget {
                 controller:subjectController,
                 type: TextInputType.text,
                 hint: 'Subject',
+                focusNode: _subjectFocusNode,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_messageFocusNode),
                 validate: (value) {
                   if(value!.isEmpty){
                     return 'Required';
@@ -154,6 +173,8 @@ class ContactUsScreen extends StatelessWidget {
                 controller:messageController ,
                 type: TextInputType.text,
                 hint: 'Tell us how we can help',
+                focusNode: _messageFocusNode,
+                textInputAction: TextInputAction.done,
                 maxLines: 6,
                 validate: (value) {
                   if(value!.isEmpty){
