@@ -53,32 +53,6 @@ class UpdateThingsCaseScreen extends StatelessWidget {
     return BlocConsumer<MainCubit, MainState>(
 
       listener: (context, state) {
-        if(state is UploadMissingThingsSuccessState){
-          if(state.uploadMissingThings.status=='success'){
-            Fluttertoast.showToast(
-              msg:state.uploadMissingThings.message!,
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0,
-
-            );
-          }else{
-            Fluttertoast.showToast(
-              msg:state.uploadMissingThings.message!,
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0,
-
-            );
-          }
-
-        }
       },
       builder: (context, state) {
 
@@ -94,13 +68,9 @@ class UpdateThingsCaseScreen extends StatelessWidget {
         changeState(stateValue?? model!.state??'');
         changeType(typeValue?? model!.type??'');
         changeColor(colorName??model!.color??'');
-        print('+++++++++++++++++++-----------------------11++++++++++++++++++++');
-        print(stateValue);
-        print(typeValue);
-        print(colorName);
+
 
         var cubit = MainCubit.get(context);
-        print('+++++++++++++++++++-----------------------22++++++++++++++++++++');
 
         List<Step> step=[
           Step(
@@ -506,7 +476,6 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                                     model: modelController.text,
                                     id: model!.sId!,
                                 );
-                                cubit.deleteMissingThingsImage();
                               }, text: 'update', style: const TextStyle(color: Colors.white),background: defaultColor ,
                               ),
                             ),

@@ -37,7 +37,7 @@ class DescriptionThingsScreen extends StatelessWidget {
               expandedHeight:420,
               pinned: true,
               bottom: PreferredSize(
-                preferredSize:const Size.fromHeight(0),
+                preferredSize:const Size.fromHeight(-5),
                 child: Container(
                   decoration: BoxDecoration(
                       color: defaultColor,
@@ -63,7 +63,7 @@ class DescriptionThingsScreen extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                   background: Image.network(
                     model.photo!,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     // width: double.maxFinite,
                   )
               ),
@@ -117,7 +117,7 @@ class DescriptionThingsScreen extends StatelessWidget {
                         Text(model.color!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
                       ],),
                     SizedBox(height: height,),
-                    if(model.carNumber != null)
+                    if(model?.carNumber != null)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -125,7 +125,7 @@ class DescriptionThingsScreen extends StatelessWidget {
                           Text(model.carNumber??'',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
 
                         ],),
-                    if(model.carNumber != null)
+                    if(model?.carNumber != null)
                       SizedBox(height: height,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -147,8 +147,17 @@ class DescriptionThingsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text('Description : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
-                        Text(model.description,maxLines: 2,textAlign: TextAlign.start,style: TextStyle(fontFamily: 'Jannah',fontSize: 12,color: defaultColor, ),),
+
                       ],),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(model.description,maxLines: 5,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(fontFamily: 'Jannah',fontSize: 12,color: defaultColor, ),),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: height*5,),
                     Row(children:  [
                       const Expanded(child: Divider(color: Colors.grey,height: 1,)),

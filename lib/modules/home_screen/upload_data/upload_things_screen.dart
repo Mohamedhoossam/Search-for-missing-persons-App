@@ -405,7 +405,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                 defaultFormField(
                     controller: messengerUserNameController,
                     focusNode: _messengerUserNameFocusNode,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
                     validate: (value){

@@ -33,7 +33,7 @@ class DescriptionScreen extends StatelessWidget {
               },
                   icon: const Icon(IconBroken.Arrow___Left,color: Colors.white,)),
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(0),
+                preferredSize: const Size.fromHeight(-10),
                 child: Container(
                   decoration: BoxDecoration(
                       color: defaultColor,
@@ -173,16 +173,24 @@ class DescriptionScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text('circumstances : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
-                          Text(model.circumstances!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
                         ],),
+                      Row(
+                        children: [
+                          Expanded(child: Text(model.circumstances!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
+                        ],
+                      ),
+
                       SizedBox(height: height,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text('characteristics : ',style: TextStyle(fontFamily: 'Jannah',fontSize: font,color:  cubit.isDark==false? Colors.black:Colors.white,),),
-                          Text(model!.characteristics!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),),
-
                         ],),
+                      Row(
+                        children: [
+                          Expanded(child: Text(model!.characteristics!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
+                        ],
+                      ),
                       SizedBox(height: height*5,),
                       Row(children:  [
                        const Expanded(child: Divider(color: Colors.grey,height: 1,)),

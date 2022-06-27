@@ -53,32 +53,6 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
     return BlocConsumer<MainCubit, MainState>(
 
       listener: (context, state) {
-        if(state is UploadMissingPersonSuccessState){
-          if(state.uploadPersonModel.status == 'success'){
-            Fluttertoast.showToast(
-              msg:state.uploadPersonModel.message!,
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0,
-
-            );
-          }else{
-            Fluttertoast.showToast(
-              msg:state.uploadPersonModel.message!,
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 2,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0,
-
-            );
-          }
-
-        }
       },
       builder: (context, state) {
             nameController.text = nameController.text.isEmpty ? model!.name! : nameController.text;

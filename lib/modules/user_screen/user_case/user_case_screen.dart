@@ -62,6 +62,8 @@ class UserCaseScreen extends StatelessWidget {
                 color: defaultColor,
                 onPressed: (){
                   navigateTo(context, const MissingPersonCaseScreen());
+                  //cubit.getUserMissingCase();
+
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +85,10 @@ class UserCaseScreen extends StatelessWidget {
               child: MaterialButton(
                 color: defaultColor,
                 onPressed: (){
+
                   navigateTo(context, const SearchForFamilyCaseScreen());
+                 // cubit.getUserSearchForFamilyCase();
+
 
                 },
                 child: Row(
@@ -106,7 +111,10 @@ class UserCaseScreen extends StatelessWidget {
               child: MaterialButton(
                 color: defaultColor,
                 onPressed: (){
+
                   navigateTo(context, const ThingsCaseScreen());
+                //  cubit.getUserThingsCase();
+
 
                 },
                 child: Row(

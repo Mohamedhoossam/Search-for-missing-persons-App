@@ -283,7 +283,9 @@ class MainCubit extends Cubit<MainState>{
       emit(UploadMissingPersonSuccessState(uploadPersonModel!));
 
     }on DioError catch(e){
-     uploadPersonModel=UploadPersonModel.fromJson(e.response?.data);
+      print(e.response?.statusCode);
+      print(e.response?.data);
+     uploadPersonModel=UploadPersonModel.fromJson(e.response!.data);
      emit(UploadMissingPersonSuccessState(uploadPersonModel!));
 
     }catch(e){
@@ -393,8 +395,9 @@ class MainCubit extends Cubit<MainState>{
 
       emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
     }on DioError catch(e){
-      searchForFamilyModel=SearchForFamilyModel.fromJson(e.response!.data);
-      emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
+      print(e.response!.statusCode);
+      //searchForFamilyModel=SearchForFamilyModel.fromJson(e.response!.data);
+    //  emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
     }catch(e){
       emit(UploadMissingPersonErrorState());
     }
@@ -1065,10 +1068,13 @@ void getOldTenPerson()async{
       deleteImage();
       showToast(text: 'update success', state: ToastStates.SUCCESS);
       emit(UpdateUserCaseSuccessState());
+      showToast(text: response.data['message'], state: ToastStates.SUCCESS);
+
     }on DioError catch(e){
 
       emit(UpdateUserCaseSuccessState());
-      print(e.response!.data);
+      showToast(text: e.response!.data['message'], state: ToastStates.ERROR);
+
 
     }catch(e){
       emit(UpdateUserCaseErrorState());
@@ -1139,11 +1145,15 @@ void getOldTenPerson()async{
       deleteSearchForFamilyImage();
       showToast(text: 'update success', state: ToastStates.SUCCESS);
       emit(UpdateUserCaseSuccessState());
+      print(response.data['message']);
 
 
     }on DioError catch(e){
 
       emit(UpdateUserCaseSuccessState());
+      print(e.response!.data['status']);
+      showToast(text: e.response!.data['message'], state: ToastStates.ERROR);
+
 
     }catch(e){
 
@@ -1194,14 +1204,14 @@ void getOldTenPerson()async{
     try{
       var response = await DioHelper.patchData(url: updateUserThingsCaseUrl+id,
           data:formData,token: token);
-      getUserThingsCase();
-      deleteMissingThingsImage();
       showToast(text: 'update success', state: ToastStates.SUCCESS);
       emit(UpdateUserCaseSuccessState());
+      getUserThingsCase();
+      deleteMissingThingsImage();
 
 
     }on DioError catch(e){
-
+      showToast(text: e.response!.data['message'], state: ToastStates.ERROR);
       emit(UpdateUserCaseSuccessState());
 
     }catch(e){
@@ -1495,7 +1505,7 @@ void counterFound()async{
   }
 ///////////////////end///////////////////////////////////////////
 
-//////////////////get admin search for family case////////////////////////////////
+//////////////////get admin things case////////////////////////////////
 
   AdminThingsModel? adminThingsModel;
   List<Map>  thingsAdminCaseList=[];
@@ -1542,7 +1552,7 @@ void counterFound()async{
       );
 
       emit(DeleteAdminCaseSuccessState(response.data['message']));
-
+        getAdminMissingCase();
 
     }on DioError catch(e){
 
@@ -1569,7 +1579,7 @@ void counterFound()async{
       );
 
       emit(DeleteAdminCaseSuccessState(response.data['message']));
-
+       getAdminSearchForFamilyCase();
 
     }on DioError catch(e){
 
@@ -1594,9 +1604,8 @@ void counterFound()async{
           url: deleteAdminThingsCaseUrl+id,
           token: token
       );
-
+      getAdminThingsCase();
       emit(DeleteAdminCaseSuccessState(response.data['message']));
-
 
     }on DioError catch(e){
 

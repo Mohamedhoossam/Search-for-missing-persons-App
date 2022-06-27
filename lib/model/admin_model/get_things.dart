@@ -35,6 +35,7 @@ class AdminThingsData {
   bool? accept;
   String? castDate;
   int? iV;
+  int ?carNumber;
 
 
 
@@ -55,6 +56,7 @@ class AdminThingsData {
     accept = json['Accept'];
     castDate = json['castDate'];
     iV = json['__v'];
+    carNumber=json['carNumber'];
 
 
   }
