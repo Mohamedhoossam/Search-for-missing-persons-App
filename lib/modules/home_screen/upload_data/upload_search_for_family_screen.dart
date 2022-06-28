@@ -621,6 +621,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                               child: defaultButton(function: (){
                                 cubit.postSearchForFamily(
                                   height: heightController.text,
+                                  context: context,
                                   name: nameController.text,
                                   state: stateController.text,
                                   fatherName: fatherNameController.text,

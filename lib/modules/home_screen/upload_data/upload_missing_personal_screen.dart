@@ -617,6 +617,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                             function: (){
                                MainCubit.get(context).uploadMissingPerson(
                                  height: heightController.text,
+                                 context: context,
                                  name: nameController.text,
                                  state: stateController.text,
                                  fatherName: fatherNameController.text,

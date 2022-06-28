@@ -19,6 +19,7 @@ import 'package:newnew/model/get_model/user_missing_person_case.dart';
 import 'package:newnew/model/get_model/user_missing_things_case.dart';
 import 'package:newnew/model/get_model/user_search_for_family_case.dart';
 import 'package:newnew/model/search_by_image_model/search_by_image_model.dart';
+import 'package:newnew/model/upload_model/already_missing_found_model.dart';
 import 'package:newnew/model/upload_model/update_password.dart';
 import 'package:newnew/model/upload_model/update_profile.dart';
 import 'package:newnew/model/upload_model/upload_missing_things_model.dart';
@@ -27,6 +28,7 @@ import 'package:newnew/model/user_model/contact_us_model.dart';
 import 'package:newnew/model/user_model/get_profile.dart';
 import 'package:newnew/model/get_model/old_ten_model.dart';
 import 'package:newnew/model/upload_model/search_for_family_model.dart';
+import 'package:newnew/modules/home_screen/already_found_screen.dart';
 import 'package:newnew/modules/home_screen/paper_screen.dart';
 import 'package:newnew/modules/home_screen/personal_screen.dart';
 import 'package:newnew/modules/home_screen/upload_data/upload_screen.dart';
@@ -37,6 +39,7 @@ import 'package:newnew/shared/constant.dart';
 import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/network/dio.dart';
 import 'package:newnew/shared/network/end_point.dart';
+import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
 
 
@@ -220,6 +223,7 @@ class MainCubit extends Cubit<MainState>{
 
   //upload missing person
   UploadPersonModel? uploadPersonModel;
+  AlreadyMissingFoundModel? alreadyMissingFoundModel;
   void uploadMissingPerson(
       {
         String? name,
@@ -243,6 +247,7 @@ class MainCubit extends Cubit<MainState>{
         String? whatApp,
         String? messengerUserName,
         File? photo,
+       required BuildContext context,
       }
       )async{
 
@@ -283,10 +288,36 @@ class MainCubit extends Cubit<MainState>{
       emit(UploadMissingPersonSuccessState(uploadPersonModel!));
 
     }on DioError catch(e){
-      print(e.response?.statusCode);
-      print(e.response?.data);
-     uploadPersonModel=UploadPersonModel.fromJson(e.response!.data);
-     emit(UploadMissingPersonSuccessState(uploadPersonModel!));
+      deleteImage();
+       if(e.response?.data['data'] != null ){
+         alreadyMissingFoundModel = AlreadyMissingFoundModel.fromJson(e.response!.data);
+         showDialog(context: context, builder: (context){
+           return AlertDialog(
+              title:  Text(e.response!.data['message']),
+             content:  const Text('you want see it ?'),
+             actions: [
+               MaterialButton(onPressed: (){
+                 Navigator.of(context).pop();
+               },child: Text('cancel',style: TextStyle(color: defaultColor),),),
+               MaterialButton(onPressed: (){
+                 Navigator.of(context).pop();
+                 navigateTo(context, AlreadyFoundScreen(model: alreadyMissingFoundModel!.data![0],));
+               },child: const Text('ok',style: TextStyle(color: Colors.red),),),
+             ],
+             elevation: 24,
+
+           );
+
+         },
+         );
+
+          emit(AlreadyMissingFoundState());
+
+
+       }else{
+         uploadPersonModel=UploadPersonModel.fromJson(e.response!.data);
+         emit(UploadMissingPersonSuccessState(uploadPersonModel!));
+       }
 
     }catch(e){
       emit(UploadMissingPersonErrorState());
@@ -355,6 +386,7 @@ class MainCubit extends Cubit<MainState>{
         String? whatApp,
         String? messangerUserName,
         File? photo,
+        required BuildContext context,
       }
       )async{
 
@@ -395,9 +427,38 @@ class MainCubit extends Cubit<MainState>{
 
       emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
     }on DioError catch(e){
-      print(e.response!.statusCode);
-      //searchForFamilyModel=SearchForFamilyModel.fromJson(e.response!.data);
-    //  emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
+      deleteSearchForFamilyImage();
+
+      if(e.response?.data['data'] != null ){
+        alreadyMissingFoundModel = AlreadyMissingFoundModel.fromJson(e.response!.data);
+        showDialog(context: context, builder: (context){
+          return AlertDialog(
+            title:  Text(e.response!.data['message']),
+            content:  const Text('you want see it ?'),
+            actions: [
+              MaterialButton(onPressed: (){
+                Navigator.of(context).pop();
+              },child: Text('cancel',style: TextStyle(color: defaultColor),),),
+              MaterialButton(onPressed: (){
+                Navigator.of(context).pop();
+                navigateTo(context, AlreadyFoundScreen(model: alreadyMissingFoundModel!.data![0],));
+              },child: const Text('ok',style: TextStyle(color: Colors.red),),),
+            ],
+            elevation: 24,
+
+          );
+
+        },
+        );
+
+        emit(AlreadyMissingFoundState());
+
+
+      }else{
+        searchForFamilyModel=SearchForFamilyModel.fromJson(e.response!.data);
+        emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
+      }
+
     }catch(e){
       emit(UploadMissingPersonErrorState());
     }
