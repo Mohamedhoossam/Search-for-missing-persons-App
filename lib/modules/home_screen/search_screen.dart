@@ -18,7 +18,7 @@ class SearchScreen extends StatelessWidget {
 
     AppBar appBar =AppBar(
       elevation: 0.0,
-      leading: IconButton(icon:const Icon(IconBroken.Arrow___Left_2) ,onPressed: (){
+      leading: IconButton(icon:const Icon(IconBroken.Arrow___Left) ,onPressed: (){
         MainCubit.get(context).searchByImage = null;
        Navigator.of(context).pop();
       },),
