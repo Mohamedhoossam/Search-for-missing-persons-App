@@ -285,3 +285,5 @@ class RejectedThingsSuccessState extends MainState {
   RejectedThingsSuccessState(this.thingsRejectAdmin);
 }
 class RejectedThingsErrorState extends MainState {}
+// already found
+class AlreadyMissingFoundState extends MainState {}
