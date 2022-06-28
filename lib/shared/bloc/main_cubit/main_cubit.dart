@@ -1872,6 +1872,15 @@ void counterFound()async{
 
 ///////////////////end///////////////////////////////////////////
 
+  Future loadHomeScreenData()async {
+
+    await Future.delayed(const Duration(microseconds: 4000));
+    getAllPerson();
+    getOldTenPerson();
+    getAllThings();
+
+  }
+
 }
 
 
