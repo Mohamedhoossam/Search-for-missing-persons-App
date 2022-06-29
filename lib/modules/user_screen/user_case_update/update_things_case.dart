@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newnew/model/get_model/user_missing_things_case.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
@@ -19,6 +18,17 @@ class UpdateThingsCaseScreen extends StatelessWidget {
   var lastSeenController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var whatsNumberController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _modelFocusNode = FocusNode();
+  final _descriptionFocusNode = FocusNode();
+  final _locationFocusNode = FocusNode();
+  final _lastSeenFocusNode = FocusNode();
+  final _selectType = FocusNode();
+  final _selectColor = FocusNode();
+  final _messengerUserNameFocusNode = FocusNode();
+  final _phoneNum = FocusNode();
+  final _whatsapp = FocusNode();
+  final _changeState = FocusNode();
   String? phoneNum;
   String? whatsNum;
   ThingsCaseData? model;
@@ -83,6 +93,9 @@ class UpdateThingsCaseScreen extends StatelessWidget {
 
                 defaultFormField(
                     controller: nameController,
+                    focusNode: _nameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_selectType),
                     type: TextInputType.name,
                     hint: "name",
                     validate: (value){
@@ -95,6 +108,7 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 dropDownButtonFormField(
                     change: changeType,
+                    focusNode: _selectType,
                     value: typeValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -113,6 +127,7 @@ class UpdateThingsCaseScreen extends StatelessWidget {
 
                 dropDownButtonFormField(
                     change: changeState,
+                    focusNode: _changeState,
                     value: stateValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -129,6 +144,9 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: modelController,
+                    focusNode: _modelFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_selectColor),
                     type: TextInputType.number,
                     hint: "model",
                     validate: (value){
@@ -142,6 +160,7 @@ class UpdateThingsCaseScreen extends StatelessWidget {
 
                 dropDownButtonFormField(
                     change: changeColor,
+                    focusNode: _selectColor,
                     value: colorName,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -162,6 +181,8 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                 if(typeValue == 'transportation')
                   defaultFormField(
                       controller: carNumberController,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_selectType),
                       type: TextInputType.number,
                       hint: "car number",
                       validate: (value){
@@ -190,6 +211,8 @@ class UpdateThingsCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                     controller: descriptionController,
+                    focusNode: _descriptionFocusNode,
+                    textInputAction: TextInputAction.next,
                     maxLines: 5,
                     type: TextInputType.multiline,
                     hint: "Description...",
@@ -266,6 +289,9 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                   const SizedBox(height: 20,),
                   defaultFormField(
                       controller: lastSeenController,
+                      focusNode: _lastSeenFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_locationFocusNode),
                       type: TextInputType.none,
                       lockKeyboard: true,
                       hint: 'dd/mm/yyyy',
@@ -303,6 +329,8 @@ class UpdateThingsCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: locationController,
+                      focusNode: _locationFocusNode,
+                      textInputAction: TextInputAction.next,
                       type: TextInputType.text,
 
                       hint: "Location",
@@ -328,6 +356,9 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: phoneNumberController,
+                    focusNode: _phoneNum,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_whatsapp),
                     type: TextInputType.phone,
                     hint: "PhoneNumber",
                     validate: (value){
@@ -341,6 +372,9 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: whatsNumberController,
+                    focusNode: _whatsapp,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
                     type: TextInputType.phone,
                     hint: "WhatsNumber",
                     validate: (value){
@@ -354,6 +388,8 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: messengerUserNameController,
+                    focusNode: _messengerUserNameFocusNode,
+                    textInputAction: TextInputAction.next,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
                     validate: (value){

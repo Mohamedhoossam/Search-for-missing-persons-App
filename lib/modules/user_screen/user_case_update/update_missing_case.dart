@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newnew/model/get_model/user_missing_person_case.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
@@ -25,6 +24,23 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
   var yearOfBirthController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var whatsNumberController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _fatherNameFocusNode = FocusNode();
+  final _motherNameFocusNode = FocusNode();
+  final _weightFocusNode = FocusNode();
+  final _heightFocusNode = FocusNode();
+  final _characteristicsFocusNode = FocusNode();
+  final _lastSeenFocusNode = FocusNode();
+  final _cityFocusNode = FocusNode();
+  final _countryFocusNode = FocusNode();
+  final _stateFocusNode = FocusNode();
+  final _accidentFocusNode = FocusNode();
+  final _yearOfBirthFocusNode = FocusNode();
+  final _gender = FocusNode();
+  final _messengerUserNameFocusNode = FocusNode();
+  final _teleNum = FocusNode();
+  final _whatsapp = FocusNode();
+  final _changeCountry = FocusNode();
   String? phoneNum;
   String? whatsNum;
   MissingCaseData? model;
@@ -86,6 +102,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 defaultFormField(
 
                     controller: nameController,
+                    focusNode: _nameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_fatherNameFocusNode),
                     type: TextInputType.name,
                     hint: "name",
                     validate: (value){
@@ -97,6 +116,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: fatherNameController,
+                    focusNode: _fatherNameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_motherNameFocusNode),
                     type: TextInputType.name,
                     hint: "Father name",
                     validate: (value){
@@ -108,6 +130,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: motherNameController,
+                    focusNode: _motherNameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_gender),
                     type: TextInputType.name,
                     hint: "Mother name",
                     validate: (value){
@@ -120,6 +145,7 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                 dropDownButtonFormField(
                     change: changeGender,
+                    focusNode: _gender,
                     value: ganderValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -136,6 +162,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                   controller: yearOfBirthController,
+                  focusNode: _yearOfBirthFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_weightFocusNode),
                   type: TextInputType.number,
                   hint: "yearOfBirth",
                   validate: (value){
@@ -158,6 +187,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                   Expanded(
                     child: defaultFormField(
                       controller: weightController,
+                      focusNode: _weightFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_heightFocusNode),
                       type: TextInputType.number,
                       hint: "weight",
                       counterText: 'Kg',
@@ -175,6 +207,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                   Expanded(
                     child: defaultFormField(
                       controller: heightController,
+                      focusNode: _heightFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_changeCountry),
                       type: TextInputType.number,
                       hint: "height",
                       counterText: "Cm",
@@ -190,6 +225,7 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 ],),
                 dropDownButtonFormField(
                     change: changeCountry,
+                    focusNode: _changeCountry,
                     value: countryName,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -225,6 +261,8 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                     controller: characteristicsController,
+                    focusNode: _characteristicsFocusNode,
+                    textInputAction: TextInputAction.next,
                     maxLines: 5,
                     type: TextInputType.multiline,
                     hint: "Some distinguishing signs, if any, such as blind or mentally disturbed ...",
@@ -300,6 +338,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                   const SizedBox(height: 20,),
                   defaultFormField(
                       controller: lastSeenController,
+                      focusNode: _lastSeenFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_countryFocusNode),
                       type: TextInputType.none,
                       lockKeyboard: true,
                       hint: 'dd/mm/yyyy',
@@ -337,6 +378,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: countryController,
+                      focusNode: _countryFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_stateFocusNode),
                       type: TextInputType.text,
 
                       hint: "Country",
@@ -350,6 +394,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: stateController,
+                      focusNode: _stateFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_cityFocusNode),
                       type: TextInputType.text,
                       hint: "state",
 
@@ -364,6 +411,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: cityController,
+                      focusNode: _cityFocusNode,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_accidentFocusNode),
                       type: TextInputType.text,
                       hint: "City",
                       validate: (value){
@@ -376,6 +426,8 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                     controller: accidentController,
+                    focusNode: _accidentFocusNode,
+                    textInputAction: TextInputAction.next,
                     type: TextInputType.text,
                     hint: "Information about the accident",
                     maxLines: 5,
@@ -398,6 +450,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: phoneNumberController,
+                    focusNode: _teleNum,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_whatsapp),
                     type: TextInputType.phone,
                     hint: "PhoneNumber",
                     validate: (value){
@@ -411,6 +466,9 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: whatsNumberController,
+                    focusNode: _whatsapp,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
                     type: TextInputType.phone,
                     hint: "WhatsNumber",
                     validate: (value){
@@ -425,6 +483,8 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
 
                 defaultFormField(
                     controller: messengerUserNameController,
+                    focusNode: _messengerUserNameFocusNode,
+                    textInputAction: TextInputAction.next,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
                     validate: (value){

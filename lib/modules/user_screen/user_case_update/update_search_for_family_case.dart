@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newnew/model/get_model/user_search_for_family_case.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
@@ -25,6 +24,23 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
   var yearOfBirthController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var whatsNumberController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _fatherNameFocusNode = FocusNode();
+  final _motherNameFocusNode = FocusNode();
+  final _weightFocusNode = FocusNode();
+  final _heightFocusNode = FocusNode();
+  final _characteristicsFocusNode = FocusNode();
+  final _lastSeenFocusNode = FocusNode();
+  final _cityFocusNode = FocusNode();
+  final _countryFocusNode = FocusNode();
+  final _stateFocusNode = FocusNode();
+  final _accidentFocusNode = FocusNode();
+  final _messengerUserNameFocusNode = FocusNode();
+  final _phoneFocusNode = FocusNode();
+  final _whatsNumberFocusNode = FocusNode();
+  final _yearOfBirthFocusNode = FocusNode();
+  final _gender = FocusNode();
+  final _changeCountry = FocusNode();
   String? phoneNum;
   String? whatsNum;
   SearchForFamilyCaseData? model;
@@ -114,6 +130,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 defaultFormField(
 
                     controller: nameController,
+                    focusNode: _nameFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_fatherNameFocusNode),
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.name,
                     hint: "name",
                     validate: (value){
@@ -125,6 +144,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: fatherNameController,
+                    focusNode: _fatherNameFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_motherNameFocusNode),
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.name,
                     hint: "Father name",
                     validate: (value){
@@ -136,6 +158,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: motherNameController,
+                    focusNode: _motherNameFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_gender),
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.name,
                     hint: "Mother name",
                     validate: (value){
@@ -148,6 +173,7 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                 dropDownButtonFormField(
                     change: changeGender,
+                    focusNode: _gender,
                     value: ganderValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -164,6 +190,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 const  SizedBox(height: 10,),
                 defaultFormField(
                   controller: yearOfBirthController,
+                  focusNode: _yearOfBirthFocusNode,
+                  onEditingComplete: ()=>FocusScope.of(context).requestFocus(_weightFocusNode),
+                  textInputAction:TextInputAction.next ,
                   type: TextInputType.number,
                   hint: "yearOfBirth",
                   validate: (value){
@@ -186,6 +215,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                   Expanded(
                     child: defaultFormField(
                       controller: weightController,
+                      focusNode: _weightFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_heightFocusNode),
+                      textInputAction:TextInputAction.next ,
                       type: TextInputType.number,
                       hint: "weight",
                       counterText: 'Kg',
@@ -203,6 +235,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                   Expanded(
                     child: defaultFormField(
                       controller: heightController,
+                      focusNode: _heightFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_changeCountry),
+                      textInputAction:TextInputAction.next ,
                       type: TextInputType.number,
                       hint: "height",
                       counterText: "Cm",
@@ -218,6 +253,7 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 ],),
                 dropDownButtonFormField(
                     change: changeCountry,
+                    focusNode: _changeCountry,
                     value: countryName,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
@@ -253,6 +289,8 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                     controller: characteristicsController,
+                    focusNode: _characteristicsFocusNode,
+                    textInputAction:TextInputAction.next ,
                     maxLines: 5,
                     type: TextInputType.multiline,
                     hint: "Some distinguishing signs, if any, such as blind or mentally disturbed ...",
@@ -329,6 +367,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                   const SizedBox(height: 20,),
                   defaultFormField(
                       controller:lastSeenController,
+                      focusNode: _lastSeenFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_countryFocusNode),
+                      textInputAction:TextInputAction.next ,
                       type: TextInputType.none,
                       lockKeyboard: true,
                       hint: 'dd/mm/yyyy',
@@ -366,6 +407,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: countryController,
+                      focusNode: _countryFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_stateFocusNode),
+                      textInputAction:TextInputAction.next ,
                       type: TextInputType.text,
 
                       hint: "Country",
@@ -379,6 +423,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: stateController,
+                      focusNode: _stateFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_cityFocusNode),
+                      textInputAction:TextInputAction.next ,
                       type: TextInputType.text,
                       hint: "state",
 
@@ -393,6 +440,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                       controller: cityController,
+                      focusNode: _cityFocusNode,
+                      onEditingComplete: ()=>FocusScope.of(context).requestFocus(_accidentFocusNode),
+                      textInputAction:TextInputAction.next ,
                       type: TextInputType.text,
                       hint: "City",
                       validate: (value){
@@ -405,6 +455,8 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                   defaultFormField(
                     controller: accidentController,
+                    focusNode: _accidentFocusNode,
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.text,
                     hint: "Information about the accident",
                     maxLines: 5,
@@ -427,6 +479,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: phoneNumberController,
+                    focusNode: _phoneFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_whatsNumberFocusNode),
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.phone,
                     hint: "PhoneNumber",
                     validate: (value){
@@ -440,6 +495,9 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 defaultFormField(
                     controller: whatsNumberController,
+                    focusNode: _whatsNumberFocusNode,
+                    onEditingComplete: ()=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.phone,
                     hint: "WhatsNumber",
                     validate: (value){
@@ -454,6 +512,8 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
 
                 defaultFormField(
                     controller: messengerUserNameController,
+                    focusNode: _messengerUserNameFocusNode,
+                    textInputAction:TextInputAction.next ,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
                     validate: (value){
