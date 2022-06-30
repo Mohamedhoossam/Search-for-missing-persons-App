@@ -16,7 +16,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    AppBar appBar =AppBar(
+    AppBar appBar = AppBar(
       elevation: 0.0,
       leading: IconButton(icon:const Icon(IconBroken.Arrow___Left) ,onPressed: (){
         MainCubit.get(context).searchByImage = null;

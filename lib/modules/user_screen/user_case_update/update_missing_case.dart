@@ -85,7 +85,7 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
             messengerUserNameController.text = messengerUserNameController.text.isEmpty? model!.messangerUserName??'' : messengerUserNameController.text;
             yearOfBirthController.text = yearOfBirthController.text.isEmpty? model!.yearOfBirth!.toString() : yearOfBirthController.text;
             phoneNumberController.text = phoneNumberController.text.isEmpty? model!.phone! : phoneNumberController.text;
-            whatsNumberController.text = whatsNumberController.text.isEmpty ? model!.whatsApp! : whatsNumberController.text;
+            whatsNumberController.text = whatsNumberController.text.isEmpty ? model!.phone! : whatsNumberController.text;
             changeGender(ganderValue?? model!.gender!);
             changeCountry(countryName?? model!.nationality!);
             var cubit = MainCubit.get(context);
@@ -427,7 +427,7 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                   defaultFormField(
                     controller: accidentController,
                     focusNode: _accidentFocusNode,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     type: TextInputType.text,
                     hint: "Information about the accident",
                     maxLines: 5,
@@ -484,7 +484,7 @@ class UpdateUserMissingCaseScreen extends StatelessWidget {
                 defaultFormField(
                     controller: messengerUserNameController,
                     focusNode: _messengerUserNameFocusNode,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     type: TextInputType.name,
                     hint: "MessengerUserName",
                     validate: (value){
