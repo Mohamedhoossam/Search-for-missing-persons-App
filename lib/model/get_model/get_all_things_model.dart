@@ -38,6 +38,8 @@ class ThingsData {
   bool? accept;
   String? castDate;
   int? iV;
+  String? latitude;
+  String? longitude;
 
 
   ThingsData.fromJson(Map<String, dynamic> json) {
@@ -59,6 +61,8 @@ class ThingsData {
     accept = json['Accept'];
     castDate = json['castDate'];
     iV = json['__v'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
 

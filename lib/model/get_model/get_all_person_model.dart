@@ -46,6 +46,8 @@ class PersonData {
   String? fullName;
   String? head;
   String? stateType;
+  String? latitude;
+  String? longitude;
 
 
 
@@ -78,6 +80,8 @@ class PersonData {
     fullName = json['fullName'];
     head = json['head'];
     stateType = json['stateType'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
 }

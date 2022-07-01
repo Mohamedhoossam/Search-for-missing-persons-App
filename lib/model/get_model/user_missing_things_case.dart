@@ -1,6 +1,6 @@
 class UserThingsCaseModel {
   String? status;
-  Null? message;
+  String? message;
   List<ThingsCaseData>? data;
   UserThingsCaseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -34,6 +34,9 @@ class ThingsCaseData {
   bool? accept;
   String? castDate;
   int? iV;
+  String? latitude;
+  String? longitude;
+
 
   ThingsCaseData.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -54,6 +57,8 @@ class ThingsCaseData {
     accept = json['Accept'];
     castDate = json['castDate'];
     iV = json['__v'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
 }

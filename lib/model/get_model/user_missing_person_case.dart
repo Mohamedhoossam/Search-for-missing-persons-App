@@ -41,6 +41,9 @@ class MissingCaseData {
   bool? accept;
   String? stateType;
   int? iV;
+  String? latitude;
+  String? longitude;
+
 
 
   MissingCaseData.fromJson(Map<String, dynamic> json) {
@@ -68,6 +71,8 @@ class MissingCaseData {
     accept = json['Accept'];
     stateType = json['stateType'];
     iV = json['__v'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:newnew/modules/home_screen/map_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
@@ -21,7 +23,10 @@ class DescriptionScreen extends StatelessWidget {
       builder: (BuildContext context, state) {
         MainCubit cubit = MainCubit.get(context);
         return Scaffold(
-        body: CustomScrollView(
+          floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+          floatingActionButtonLocation:FloatingActionButtonLocation.endTop ,
+
+          body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
@@ -56,7 +61,7 @@ class DescriptionScreen extends StatelessWidget {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(model!.photo!,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -191,7 +196,7 @@ class DescriptionScreen extends StatelessWidget {
                           Expanded(child: Text(model!.characteristics!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
                         ],
                       ),
-                      SizedBox(height: height*5,),
+                      SizedBox(height: height*2,),
                       Row(children:  [
                        const Expanded(child: Divider(color: Colors.grey,height: 1,)),
                         Padding(
@@ -233,7 +238,27 @@ class DescriptionScreen extends StatelessWidget {
             )
           ],
         ),
-      );
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: FloatingActionButton(
+
+              onPressed: () {
+
+                MapCubit.get(context).isLatLng = false;
+               MapCubit.get(context).getLocation(context: context, latitude: model!.latitude, longitude: model!.longitude);
+                navigateTo(context,  HomeScreen(longitude:  model!.longitude, latitude: model!.latitude,name: model!.name,));
+
+
+              },
+              backgroundColor:defaultColor ,
+
+              child: const Icon(Icons.location_on_outlined,color: Colors.white,),
+
+
+            ),
+          ),
+
+        );
         },
       listener: (BuildContext context, state) {  },
 
