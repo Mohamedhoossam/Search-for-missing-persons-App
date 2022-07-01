@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:location/location.dart';
 import 'package:newnew/model/admin_model/accept_missing_model.dart';
 import 'package:newnew/model/admin_model/get_missing_person.dart';
 import 'package:newnew/model/admin_model/get_search_for_family.dart';
@@ -1881,37 +1879,6 @@ void counterFound()async{
     getAllPerson();
     getOldTenPerson();
     getAllThings();
-
-  }
-
-  LocationData? currentLocation;
-    LatLng? latLng ;
-    bool isLatLng = false;
-  getLocation({required BuildContext context,required String longitude,required String latitude, }) async {
-
-   // latLng = null;
-
-      var location = Location();
-
-
-      location.onLocationChanged.listen((currentLocation) {
-        print(currentLocation.latitude);
-        print(currentLocation.longitude);
-
-        latLng = LatLng(currentLocation.latitude!, currentLocation.longitude!);
-        justEmitState();
-        print("getLocation:$latLng");
-        print("getLocation:$isLatLng");
-        // if(isLatLng == false) {
-        //   navigateTo(context,  HomeScreen(longitude: longitude, latitude: latitude,));
-        //
-        // }
-        isLatLng = true;
-      });
-
-
-
-
 
   }
 

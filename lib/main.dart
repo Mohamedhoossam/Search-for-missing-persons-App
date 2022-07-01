@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newnew/missing_layout/layout.dart';
@@ -7,6 +8,7 @@ import 'package:newnew/shared/bloc/bloc_observer.dart';
 import 'package:newnew/shared/bloc/login_register_cubit/login_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/constant.dart';
 import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/network/dio.dart';
@@ -16,6 +18,8 @@ import 'package:newnew/shared/style/themes.dart';
 void main()async{
 
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   DioHelper.init();
   await CacheHelper.init();
 
@@ -56,6 +60,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(create: (context) => LoginCubit(),),
+      BlocProvider(create: (context) => MapCubit(),),
       BlocProvider(create: (context) => MainCubit()..checkInterNet()..changeAppMode(fromShared: isDark)..getAllPerson()..getAllThings()..getOldTenPerson()..getUserMissingCase()..getUserSearchForFamilyCase()..getUserThingsCase()..getProfile()..counterFound()..getAllAdmin()
       ),
 

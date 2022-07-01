@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:newnew/modules/home_screen/map_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
@@ -243,8 +244,8 @@ class DescriptionScreen extends StatelessWidget {
 
               onPressed: () {
 
-                cubit.isLatLng = false;
-               MainCubit.get(context).getLocation(context: context, latitude: model!.latitude, longitude: model!.longitude);
+                MapCubit.get(context).isLatLng = false;
+               MapCubit.get(context).getLocation(context: context, latitude: model!.latitude, longitude: model!.longitude);
                 navigateTo(context,  HomeScreen(longitude:  model!.longitude, latitude: model!.latitude,name: model!.name,));
 
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
-import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
 
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Set<Polygon> myPolygon() {
     var polygonCords =  <LatLng>[];
     polygonCords.add( LatLng(latitude, longitude));
-    polygonCords.add( MainCubit.get(context).latLng!);
+    polygonCords.add( MapCubit.get(context).latLng!);
 
 
     var polygonSet = <Polygon>{};
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       ),);
       myMarkers.add( Marker(markerId: const MarkerId('3'),
-          position:MainCubit.get(context).latLng!,
+          position:MapCubit.get(context).latLng!,
           icon: BitmapDescriptor.defaultMarkerWithHue(240.0),
       ),);
 
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MainCubit, MainState>(
+    return BlocConsumer<MapCubit, MapState>(
   listener: (context, state) {
   },
   builder: (context, state) {
@@ -102,27 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body:   ConditionalBuilder(
-        condition: MainCubit.get(context).latLng != null ,
+        condition: MapCubit.get(context).latLng != null ,
         fallback: (BuildContext context) => const Center(child: CircularProgressIndicator()),
         builder: (BuildContext context) =>GoogleMap(
           polygons: myPolygon(),
           mapType: MapType.normal,
 
           initialCameraPosition:  CameraPosition(
-              target: MainCubit.get(context).latLng!, zoom: 6),
+              target: MapCubit.get(context).latLng!, zoom: 6),
           onMapCreated:googleMapController(),
           markers: myMarkers,
-
-    // const GoogleMap(
-    //
-    // mapType: MapType.normal,
-    //
-    // initialCameraPosition:  CameraPosition(
-    // target: LatLng(30.592360596253698,32.283182649650485), zoom: 8),
-    //
-    //
-    //
-    // ),
 
         ),
       ),

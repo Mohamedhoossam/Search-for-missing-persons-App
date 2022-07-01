@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:newnew/model/user_auth_model/forget_password_model.dart';
 import 'package:newnew/model/user_auth_model/reset_password_model.dart';
 import 'package:newnew/model/user_auth_model/user_model.dart';
@@ -12,7 +14,6 @@ import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/network/dio.dart';
 import 'package:newnew/shared/network/end_point.dart';
 import '../../../shared/style/icon_broken.dart';
-
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
@@ -217,7 +218,50 @@ late UserDataModel userDataModel;
 
 
 
+  //////////////// google sign In //////////////////////////////
+  static final _googleSignIn = GoogleSignIn();
+  // static Future<GoogleSignInAccount?> loginGoogle()=>_googleSignIn.signIn();
+  // static Future signOutGoogle()=>_googleSignIn.disconnect();
 
+  Future signIn() async{
+    final user = await _googleSignIn.signIn();
+    if(user == null) return;
+    final googleAuth = await user.authentication;
+    print(user.email);
+    print(user.displayName);
+    print(googleAuth.accessToken);
+    print(googleAuth.idToken);
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+
+  }
+
+
+  Future signOut() async{
+    await _googleSignIn.signOut();
+  }
+
+
+  // Future signInWithFacebook() async {
+  //   // Trigger the sign-in flow
+  //   final LoginResult loginResult = await FacebookAuth.instance.login();
+  //
+  //   // Create a credential from the access token
+  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  //
+  //   // Once signed in, return the UserCredential
+  //  return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  // }
+  //
+  // Future signOutFacebook() async{
+  //    await FacebookAuth.instance.logOut();
+  // }
 
 
 

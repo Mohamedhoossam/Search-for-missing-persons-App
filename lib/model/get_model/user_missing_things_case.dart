@@ -1,6 +1,6 @@
 class UserThingsCaseModel {
   String? status;
-  Null? message;
+  String? message;
   List<ThingsCaseData>? data;
   UserThingsCaseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
