@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:location/location.dart';
 import 'package:newnew/model/admin_model/accept_missing_model.dart';
 import 'package:newnew/model/admin_model/get_missing_person.dart';
 import 'package:newnew/model/admin_model/get_search_for_family.dart';
@@ -227,6 +229,8 @@ class MainCubit extends Cubit<MainState>{
   AlreadyMissingFoundModel? alreadyMissingFoundModel;
   void uploadMissingPerson(
       {
+        String? latitude,
+        String? longitude,
         String? name,
         String? fatherName,
         String? motherName,
@@ -275,6 +279,8 @@ class MainCubit extends Cubit<MainState>{
      'phone':phone,
      'whatApp':whatApp,
      'messengerUserName':messengerUserName,
+     'longitude':longitude,
+     'latitude':latitude,
 
 
     });
@@ -366,6 +372,8 @@ class MainCubit extends Cubit<MainState>{
    SearchForFamilyModel? searchForFamilyModel;
   void postSearchForFamily(
       {
+        String? latitude,
+        String? longitude,
         String? name,
         String? fatherName,
         String? motherName,
@@ -414,7 +422,8 @@ class MainCubit extends Cubit<MainState>{
       'phone':phone,
       'whatApp':whatApp,
       'messangerUserName':messangerUserName,
-
+      'latitude':latitude,
+      'longitude':longitude,
 
     });
 
@@ -425,7 +434,9 @@ class MainCubit extends Cubit<MainState>{
       searchForFamilyModel=SearchForFamilyModel.fromJson(response.data);
       deleteSearchForFamilyImage();
       getUserSearchForFamilyCase();
-
+      print('11111111111111111111111111111111');
+      print(response.data['data']['latitude']);
+      print(response.data['data']['longitude']);
       emit(UploadSearchForFamilySuccessState(searchForFamilyModel!));
     }on DioError catch(e){
       deleteSearchForFamilyImage();
@@ -506,6 +517,8 @@ class MainCubit extends Cubit<MainState>{
   UploadMissingThings? uploadMissingThings;
   void postMissingThings(
       {
+        String? longitude,
+        String? latitude,
         String? name,
         String? type,
         String? state,
@@ -539,6 +552,8 @@ class MainCubit extends Cubit<MainState>{
       'phone':phone,
       'whatApp':whatApp,
       'messengerUserName':messengerUserName,
+      'latitude':latitude,
+      'longitude':longitude,
 
 
 
@@ -1879,6 +1894,33 @@ void counterFound()async{
     getAllPerson();
     getOldTenPerson();
     getAllThings();
+
+  }
+
+  LocationData? currentLocation;
+  LatLng? latLng ;
+  selectLocation() async {
+
+    var location = Location();
+
+
+    location.onLocationChanged.listen((currentLocation) {
+      print(currentLocation.latitude);
+      print(currentLocation.longitude);
+
+      latLng = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+      print("getLocation:$latLng");
+
+
+    }
+
+    );
+    // CacheHelper.saveData(key:'longitude', value: latLng!.longitude.toString());
+    // CacheHelper.saveData(key:'latitude', value: latLng!.latitude.toString());
+   justEmitState();
+
+
+
 
   }
 
