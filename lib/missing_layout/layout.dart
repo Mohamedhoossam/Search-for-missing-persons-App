@@ -6,6 +6,7 @@ import 'package:newnew/modules/user_screen/aboutus_screen.dart';
 import 'package:newnew/modules/user_screen/contactus_screen.dart';
 import 'package:newnew/modules/user_screen/setting_screen.dart';
 import 'package:newnew/modules/user_screen/user_profile/profile_screen.dart';
+import 'package:newnew/shared/bloc/login_register_cubit/login_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
 import 'package:newnew/shared/components/components.dart';
@@ -172,6 +173,8 @@ class LayoutScreen extends StatelessWidget {
                         Navigator.of(context).pop();
                       },child: Text('cancel',style: TextStyle(color: defaultColor),),),
                       MaterialButton(onPressed: (){
+                        LoginCubit.get(context).signOut();
+                        LoginCubit.get(context).signOutFacebook();
                         cubit.missingLogout(context);
                       },child: const Text('ok',style: TextStyle(color: Colors.red),),),
                     ],

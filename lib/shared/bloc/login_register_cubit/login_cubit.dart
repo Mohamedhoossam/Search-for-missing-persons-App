@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:newnew/model/user_auth_model/forget_password_model.dart';
 import 'package:newnew/model/user_auth_model/reset_password_model.dart';
@@ -223,14 +224,20 @@ late UserDataModel userDataModel;
   // static Future<GoogleSignInAccount?> loginGoogle()=>_googleSignIn.signIn();
   // static Future signOutGoogle()=>_googleSignIn.disconnect();
 
-  Future signIn() async{
-    final user = await _googleSignIn.signIn();
+  Future signIn({required BuildContext context}) async{
+    final user = await _googleSignIn.signIn().then((value) {
+      googleLoginPostData(name:value!.displayName ,context:context ,email:value.email ,photo: value.photoUrl);
+
+
+    });
     if(user == null) return;
     final googleAuth = await user.authentication;
     print(user.email);
     print(user.displayName);
     print(googleAuth.accessToken);
     print(googleAuth.idToken);
+    print(user.photoUrl);
+
 
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -247,21 +254,131 @@ late UserDataModel userDataModel;
     await _googleSignIn.signOut();
   }
 
+  Future signInWithFacebook({required BuildContext context}) async {
+    // Trigger the sign-in flow
+    //permissions:['email','user_birthday']
+    final  loginResult = await FacebookAuth.instance.login(permissions:['email']);
+    if(loginResult.status == LoginStatus.success) {
+      await FacebookAuth.instance.getUserData().then((value) {
+          facebookLoginPostData(name: value['name'], email: value['email'],
+              photo: value['picture']['data']['url'], context: context);
+        print('1111111111111111111+++++++++++++++++++');
+        print(value['email']);
+        print(value['name']);
+        print(value['picture']['data']['url']);
+        print('1111111111111111111+++++++++++++++++++');
 
-  // Future signInWithFacebook() async {
-  //   // Trigger the sign-in flow
-  //   final LoginResult loginResult = await FacebookAuth.instance.login();
-  //
-  //   // Create a credential from the access token
-  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-  //
-  //   // Once signed in, return the UserCredential
-  //  return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-  // }
-  //
-  // Future signOutFacebook() async{
-  //    await FacebookAuth.instance.logOut();
-  // }
+      });
+
+
+    }
+    else{
+      print('22222222222222222222222-++++++++++++++');
+      print(loginResult.status);
+      print(loginResult.message);
+      print('22222222222222222222222-++++++++++++++');
+
+    }
+
+
+
+
+  }
+
+  Future signOutFacebook() async{
+    await FacebookAuth.instance.logOut();
+  }
+
+///////////////////////////////////////////// post login google///
+  void googleLoginPostData(
+      {
+        required name,
+        required email,
+        required photo,
+        required BuildContext context,
+      }
+      )async{
+    emit(LoginLoadingState());
+    try {
+      var response = await DioHelper.postData(url: googleAuth, data: {
+        "name": name,
+        "email": email,
+        "photo": photo,
+      });
+      CacheHelper.saveData(key: 'role', value: response.data['data']['role']);
+      userDataModel=UserDataModel.fromJson(response.data);
+      token=userDataModel.token!;
+      print('token           $token');
+
+      CacheHelper.saveData(key: 'token', value: userDataModel.token!);
+      emit(LoginSuccessState(userDataModel));
+      MainCubit.get(context).currentIndex=0;
+      MainCubit.get(context).getProfile();
+      MainCubit.get(context).getUserMissingCase();
+      MainCubit.get(context).getUserSearchForFamilyCase();
+      MainCubit.get(context).getUserThingsCase();
+      if(CacheHelper.getData(key: 'role')=='admin'){
+        MainCubit.get(context).getAdminMissingCase();
+        MainCubit.get(context).getAdminSearchForFamilyCase();
+        MainCubit.get(context).getAdminThingsCase();
+      }
+
+
+
+    }on DioError catch(e){
+      userDataModel=UserDataModel.fromJson(e.response!.data);
+      emit(LoginSuccessState(userDataModel));
+
+
+    }catch(e){
+      emit(LoginErrorState());
+    }
+  }
+
+
+  void facebookLoginPostData(
+      {
+        required name,
+        required email,
+        required photo,
+        required BuildContext context,
+      }
+      )async{
+    emit(LoginLoadingState());
+    try {
+      var response = await DioHelper.postData(url: facebookAuth, data: {
+        "name": name,
+        "email": email,
+        "photo": photo,
+      });
+      CacheHelper.saveData(key: 'role', value: response.data['data']['role']);
+      userDataModel=UserDataModel.fromJson(response.data);
+      token=userDataModel.token!;
+      print('token           $token');
+      CacheHelper.saveData(key: 'token', value: userDataModel.token!);
+      emit(LoginSuccessState(userDataModel));
+      MainCubit.get(context).currentIndex=0;
+      MainCubit.get(context).getProfile();
+      MainCubit.get(context).getUserMissingCase();
+      MainCubit.get(context).getUserSearchForFamilyCase();
+      MainCubit.get(context).getUserThingsCase();
+      if(CacheHelper.getData(key: 'role')=='admin'){
+        MainCubit.get(context).getAdminMissingCase();
+        MainCubit.get(context).getAdminSearchForFamilyCase();
+        MainCubit.get(context).getAdminThingsCase();
+      }
+
+
+
+    }on DioError catch(e){
+      userDataModel=UserDataModel.fromJson(e.response!.data);
+      emit(LoginSuccessState(userDataModel));
+
+
+    }catch(e){
+      emit(LoginErrorState());
+    }
+  }
 
 
 
