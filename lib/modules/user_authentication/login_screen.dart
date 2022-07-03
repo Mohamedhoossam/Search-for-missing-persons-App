@@ -270,7 +270,7 @@ class LoginScreen extends StatelessWidget {
                       Expanded(
                         child: defaultButton(
                           function:(){
-                           cubit.signOut();
+                            cubit.signInWithFacebook(context: context);
                           },
                           background:Colors.black12,
                           height: heightScreen/14.7,
@@ -293,7 +293,7 @@ class LoginScreen extends StatelessWidget {
                       Expanded(
                         child: defaultButton(
                           function:(){
-                            cubit.signIn();
+                            cubit.signIn(context: context);
 
                           },
                           // width:150,

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Missing</string>
+    <string name="facebook_app_id">410726434324141</string>
+    <string name="fb_login_protocol_scheme">fb410726434324141</string>
+    <string name="facebook_client_token">86f84d40ac9f0ad2a204a8ac20cd498a</string>
+
+
+</resources>

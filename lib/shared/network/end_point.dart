@@ -6,6 +6,8 @@ String verifyCode="/Users/verifyCode";
 String resetPassword="/Users/resetPassword";
 String testPhoto="/Users/test";
 String logout="/Users/logout";
+String googleAuth="/Users/googleAuth";
+String facebookAuth="/Users/facebookAuth";
 
 //home upload
 String uploadMissingPersonUrl="/person/uploadMissingPerson";
