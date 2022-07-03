@@ -417,6 +417,34 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     prefix: IconBroken.Message
                 ),
                 const SizedBox(height: 20,),
+                defaultButton(
+                  function: (){
+                    showDialog(
+                      context: context,
+                      builder: (context){
+                        return AlertDialog(
+                          content: const Text('We will determine your location Do you agree?'),
+                          actions: [
+                            MaterialButton(onPressed: (){
+                              Navigator.of(context).pop();},
+                              child:const Text('cancel',style: TextStyle(color: Colors.red),),),
+                            MaterialButton(onPressed: (){
+                              cubit.selectLocation();
+                              Navigator.of(context).pop();
+                            },
+                              child:  Text('ok',style: TextStyle(color:defaultColor ),),),
+                          ],
+                          elevation: 24,
+
+                        );
+
+                      });},
+                  text: 'Select your location',
+                  style:  TextStyle(color:cubit.isDark==false? Colors.black:Colors.white,),background: Colors.grey.withOpacity(.3) ,
+                  icon: Icons.location_on_outlined,
+
+                ),
+                const SizedBox(height: 20,),
 
               ],
               ),
@@ -513,6 +541,8 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                             Expanded(
                               child: defaultButton(function: (){
                                  MainCubit.get(context).postMissingThings(
+                                   latitude: cubit.latLng!.latitude.toString(),
+                                   longitude: cubit.latLng!.longitude.toString(),
                                    whatApp:whatsNum ,
                                    phone:phoneNum ,
                                    date:lastSeenController.text ,

@@ -38,9 +38,12 @@ class Data {
   bool? accept;
   String? sId;
   int? iV;
-
+  String? longitude;
+  String? latitude;
 
   Data.fromJson(Map<String, dynamic> json) {
+    longitude =json['longitude'];
+    latitude =json['latitude'];
     name = json['Name'];
     fatherName = json['fatherName'];
     motherName = json['motherName'];
