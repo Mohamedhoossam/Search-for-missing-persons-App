@@ -310,7 +310,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                         showDatePicker(context: context, initialDate: DateTime.now(),
                           firstDate: DateTime.parse('2000-12-30'),
                           lastDate: DateTime.now(),
-                          initialDatePickerMode:DatePickerMode.year,
+                          initialDatePickerMode:DatePickerMode.day,
                           builder: (BuildContext context, Widget? child){
                             return Theme(
                                 data: ThemeData(
@@ -359,7 +359,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 IntlPhoneField(
                   focusNode: _phoneNum,
+
                   textInputAction: TextInputAction.next,
+
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_whatsapp),
                   decoration: const InputDecoration(
                     hintText: 'Phone',
@@ -372,6 +374,17 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                       borderSide: BorderSide(
                       ),
                     ),
+
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+
+                      ),
+                    ),
+
+
+
                   ),
                   initialCountryCode: 'EG',
                   onChanged: (phone) {
@@ -384,8 +397,22 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
                   decoration: const InputDecoration(
-                    hintText: 'Whatsapp number',
+                    hintText: 'Whatsapp',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
 
+                      ),
+                    ),
+
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+
+                      ),
+                    ),
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -393,6 +420,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       borderSide: BorderSide(
+
                       ),
                     ),
                   ),
@@ -425,14 +453,35 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                         return AlertDialog(
                           content: const Text('We will determine your location Do you agree?'),
                           actions: [
-                            MaterialButton(onPressed: (){
-                              Navigator.of(context).pop();},
-                              child:const Text('cancel',style: TextStyle(color: Colors.red),),),
-                            MaterialButton(onPressed: (){
-                              cubit.selectLocation();
-                              Navigator.of(context).pop();
-                            },
-                              child:  Text('ok',style: TextStyle(color:defaultColor ),),),
+                            Container(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                color: Colors.redAccent,
+
+                              ),
+                              child: MaterialButton(onPressed: (){
+                                Navigator.of(context).pop();},
+                                child:const Text('cancel',style: TextStyle(color: Colors.white),),),
+                            ),
+                          
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius:const BorderRadius.all(Radius.circular(5)),
+                                color: defaultColor,
+
+                              ),
+
+                              child: MaterialButton(onPressed: (){
+                                cubit.selectLocation();
+                                Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(backgroundColor: Colors.green,
+                                      content: Text('get location success',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
+
+                                );
+                              },
+                                child:  const Text('ok',style: TextStyle(color:Colors.white ),),),
+                            ),
                           ],
                           elevation: 24,
 

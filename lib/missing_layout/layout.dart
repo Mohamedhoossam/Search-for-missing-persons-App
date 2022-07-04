@@ -169,14 +169,33 @@ class LayoutScreen extends StatelessWidget {
                    // title: Text('you sure logout?'),
                     content: const Text('you want logout?'),
                     actions: [
-                      MaterialButton(onPressed: (){
-                        Navigator.of(context).pop();
-                      },child: Text('cancel',style: TextStyle(color: defaultColor),),),
-                      MaterialButton(onPressed: (){
-                        LoginCubit.get(context).signOut();
-                        LoginCubit.get(context).signOutFacebook();
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius:const BorderRadius.all(Radius.circular(5)),
+                          color: defaultColor,
+
+                        ),
+
+                        child: MaterialButton(onPressed: (){
+                          Navigator.of(context).pop();
+                        },child:const Text('cancel',style: TextStyle(color: Colors.white),),),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: Colors.red,
+
+                        ),
+
+                        child: MaterialButton(onPressed: (){
+
+                           LoginCubit.get(context).signOut();
+                          LoginCubit.get(context).signOutFacebook();
+
                         cubit.missingLogout(context);
-                      },child: const Text('ok',style: TextStyle(color: Colors.red),),),
+
+                        },child: const Text('ok',style: TextStyle(color: Colors.white),),),
+                      ),
                     ],
                     elevation: 24,
 
