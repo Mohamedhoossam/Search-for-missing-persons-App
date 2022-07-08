@@ -36,6 +36,8 @@ class AdminThingsData {
   String? castDate;
   int? iV;
   int ?carNumber;
+  String? latitude;
+  String? longitude;
 
 
 
@@ -57,6 +59,8 @@ class AdminThingsData {
     castDate = json['castDate'];
     iV = json['__v'];
     carNumber=json['carNumber'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
 
 
   }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
@@ -563,11 +564,13 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                               child: MaterialButton(onPressed: (){
                                 cubit.selectLocation();
                                 Navigator.of(context).pop();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(backgroundColor: Colors.green,
-                                      content: Text('get location success',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
+                                if(MapCubit.get(context).latLng != null){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(backgroundColor: Colors.green,
+                                        content: Text('get location success',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
 
-                                );
+                                  );
+                                }
                               },
                                 child: const Text('ok',style: TextStyle(color:Colors.white ),),),
                             ),

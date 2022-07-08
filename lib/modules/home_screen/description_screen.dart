@@ -181,7 +181,7 @@ class DescriptionScreen extends StatelessWidget {
                         ],),
                       Row(
                         children: [
-                          Expanded(child: Text(model.circumstances!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
+                          Expanded(child: Text(model.circumstances??"",style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
                         ],
                       ),
 
@@ -193,7 +193,7 @@ class DescriptionScreen extends StatelessWidget {
                         ],),
                       Row(
                         children: [
-                          Expanded(child: Text(model!.characteristics!,style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
+                          Expanded(child: Text(model!.characteristics??"",style: TextStyle(fontFamily: 'Jannah',fontSize: font,color: defaultColor, ),maxLines: 5,)),
                         ],
                       ),
                       SizedBox(height: height*2,),

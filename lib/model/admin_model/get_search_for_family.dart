@@ -43,6 +43,8 @@ class Data {
   bool? accept;
   String? stateType;
   int? iV;
+  String? latitude;
+  String? longitude;
 
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -70,6 +72,8 @@ class Data {
     accept = json['Accept'];
     stateType = json['stateType'];
     iV = json['__v'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:newnew/modules/home_screen/map_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
@@ -23,7 +25,11 @@ class DescriptionThingsScreen extends StatelessWidget {
       builder: (BuildContext context, Object? state) {
         MainCubit cubit =MainCubit.get(context);
         return Scaffold(
-        body: CustomScrollView(
+          floatingActionButtonLocation:FloatingActionButtonLocation.endTop ,
+          floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+
+
+          body: CustomScrollView(
           physics:const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
@@ -198,7 +204,27 @@ class DescriptionThingsScreen extends StatelessWidget {
             ),
           ],
         ),
-      ); },
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: FloatingActionButton(
+
+              onPressed: () {
+
+                MapCubit.get(context).isLatLng = false;
+                MapCubit.get(context).getLocation(context: context, latitude: model!.latitude, longitude: model!.longitude);
+                navigateTo(context,  HomeScreen(longitude:  model!.longitude, latitude: model!.latitude,name: model!.name,));
+
+
+              },
+              backgroundColor:defaultColor ,
+
+              child: const Icon(Icons.location_on_outlined,color: Colors.white,),
+
+
+            ),
+          ),
+
+        ); },
 
     );
   }
