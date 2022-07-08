@@ -44,6 +44,9 @@ class Data {
   int? iV;
   String? whatsApp;
   String? messangerUserName;
+  String? latitude;
+  String? longitude;
+
 
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -71,34 +74,8 @@ class Data {
     iV = json['__v'];
     whatsApp = json['whatsApp'];
     messangerUserName = json['messangerUserName'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['Name'] = this.name;
-    data['fatherName'] = this.fatherName;
-    data['motherName'] = this.motherName;
-    data['yearOfBirth'] = this.yearOfBirth;
-    data['gender'] = this.gender;
-    data['nationality'] = this.nationality;
-    data['height'] = this.height;
-    data['weight'] = this.weight;
-    data['characteristics'] = this.characteristics;
-    data['photo'] = this.photo;
-    data['date'] = this.date;
-    data['country'] = this.country;
-    data['state'] = this.state;
-    data['city'] = this.city;
-    data['circumstances'] = this.circumstances;
-    data['phone'] = this.phone;
-    data['caseN'] = this.caseN;
-    data['currentUser'] = this.currentUser;
-    data['Accept'] = this.accept;
-    data['stateType'] = this.stateType;
-    data['__v'] = this.iV;
-    data['whatsApp'] = this.whatsApp;
-    data['messangerUserName'] = this.messangerUserName;
-    return data;
-  }
 }

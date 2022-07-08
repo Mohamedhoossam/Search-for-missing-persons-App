@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
+import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
@@ -368,7 +369,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                         showDatePicker(context: context, initialDate: DateTime.now(),
                           firstDate: DateTime.parse('2000-12-30'),
                           lastDate: DateTime.now(),
-                          initialDatePickerMode:DatePickerMode.year,
+                          initialDatePickerMode:DatePickerMode.day,
                           builder: (BuildContext context, Widget? child){
                             return Theme(
                                 data: ThemeData(
@@ -464,7 +465,13 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   textInputAction:TextInputAction.next,
                   decoration: const InputDecoration(
                     hintText: 'Phone',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
 
+                      ),
+                    ),
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -487,7 +494,14 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
                   textInputAction:TextInputAction.next ,
                   decoration: const InputDecoration(
-                    hintText: 'Whatsapp number',
+                    hintText: 'Whatsapp',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+
+                      ),
+                    ),
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -529,14 +543,37 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                           return AlertDialog(
                           content: const Text('We will determine your location Do you agree?'),
                           actions: [
-                            MaterialButton(onPressed: (){
-                              Navigator.of(context).pop();},
-                              child:const Text('cancel',style: TextStyle(color: Colors.red),),),
-                            MaterialButton(onPressed: (){
-                              cubit.selectLocation();
-                              Navigator.of(context).pop();
-                            },
-                              child:  Text('ok',style: TextStyle(color:defaultColor ),),),
+                            Container(
+                              decoration:const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                color: Colors.red,
+
+                              ),
+
+                              child: MaterialButton(onPressed: (){
+                                Navigator.of(context).pop();},
+                                child:const Text('cancel',style: TextStyle(color: Colors.white),),),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius:const BorderRadius.all(Radius.circular(5)),
+                                color: defaultColor,
+
+                              ),
+
+                              child: MaterialButton(onPressed: (){
+                                cubit.selectLocation();
+                                Navigator.of(context).pop();
+                                if(MapCubit.get(context).latLng != null){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(backgroundColor: Colors.green,
+                                        content: Text('get location success',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
+
+                                  );
+                                }
+                              },
+                                child: const Text('ok',style: TextStyle(color:Colors.white ),),),
+                            ),
                         ],
                         elevation: 24,
 

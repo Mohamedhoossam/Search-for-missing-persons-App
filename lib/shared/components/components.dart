@@ -393,7 +393,7 @@ Widget buildItem(context ,{
                   borderRadius: BorderRadius.circular(10),
                   image:  DecorationImage(
                     image: NetworkImage(model.photo!),
-                   // fit: BoxFit.cover,
+                    fit: BoxFit.fill,
 
                   ),
                 ),
@@ -530,7 +530,7 @@ Widget buildCaseItem(context ,{
                   borderRadius: BorderRadius.circular(10),
                   image:  DecorationImage(
                     image: NetworkImage(model.photo!),
-                    // fit: BoxFit.cover,
+                    fit: BoxFit.fill,
 
                   ),
                 ),

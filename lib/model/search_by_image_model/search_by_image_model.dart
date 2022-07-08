@@ -43,6 +43,8 @@ class SearchImageUserData {
   int? weight;
   String? whatsApp;
   int? yearOfBirth;
+  String? latitude;
+  String? longitude;
 
 
 
@@ -70,6 +72,8 @@ class SearchImageUserData {
     weight = json['weight'];
     whatsApp = json['whatsApp'];
     yearOfBirth = json['yearOfBirth'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
 
