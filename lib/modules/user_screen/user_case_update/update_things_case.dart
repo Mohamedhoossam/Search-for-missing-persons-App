@@ -112,7 +112,7 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                     value: typeValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
-                    itemsList: <String>['paper','Personal belongings','transportation','Other'],
+                    itemsList: <String>['transportations','devices','papers','others'],
                     hintText: 'select type',
                     validate: (value){
                       // if(value!.isEmpty){
@@ -131,7 +131,7 @@ class UpdateThingsCaseScreen extends StatelessWidget {
                     value: stateValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
-                    itemsList: <String>['Missing','Found'],
+                    itemsList: <String>['missing','found'],
                     hintText: 'select state',
                     validate: (value){
                       // if(value!.isEmpty){

@@ -46,13 +46,14 @@ class LayoutScreen extends StatelessWidget {
     );
 
     return BlocConsumer<MainCubit, MainState>(
+
   listener: (context, state) {
   },
   builder: (context, state) {
     MainCubit cubit = MainCubit.get(context);
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.white,
+      backgroundColor:cubit.isDark == false? Colors.white :Colors.black ,
       appBar:appBar,
       body:result == true? ConditionalBuilder(
         builder: (BuildContext context) => cubit.screen[cubit.currentIndex],
