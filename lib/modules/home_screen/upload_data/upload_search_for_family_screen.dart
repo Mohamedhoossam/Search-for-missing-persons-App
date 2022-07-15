@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
-import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
+import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
 import 'package:intl/intl.dart';
@@ -564,7 +564,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                               child: MaterialButton(onPressed: (){
                                 cubit.selectLocation();
                                 Navigator.of(context).pop();
-                                if(MapCubit.get(context).latLng != null){
+                                if(CacheHelper.getData(key: 'longitude') != null){
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(backgroundColor: Colors.green,
                                         content: Text('get location success',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
@@ -648,6 +648,12 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   Text('M',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
                   const Text('issing',),
                 ],),
+              leading: IconButton(icon: Icon(IconBroken.Arrow___Left),onPressed: (){
+                Navigator.of(context).pop();
+                CacheHelper.remove(key: 'longitude');
+                CacheHelper.remove(key: 'latitude');
+
+              },),
               centerTitle: true,
 
 
@@ -687,8 +693,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                             Expanded(
                               child: defaultButton(function: (){
                                 cubit.postSearchForFamily(
-                                  latitude: cubit.latLng!.latitude.toString(),
-                                  longitude: cubit.latLng!.longitude.toString(),
+                                  longitude: CacheHelper.getData(key: 'longitude').toString(),
+                                  latitude: CacheHelper.getData(key: 'latitude').toString(),
                                   height: heightController.text,
                                   context: context,
                                   name: nameController.text,

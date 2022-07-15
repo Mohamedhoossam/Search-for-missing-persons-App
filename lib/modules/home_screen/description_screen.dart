@@ -38,7 +38,7 @@ class DescriptionScreen extends StatelessWidget {
               },
                   icon: const Icon(IconBroken.Arrow___Left,color: Colors.white,)),
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(-10),
+                preferredSize: const Size.fromHeight(-6),
                 child: Container(
                   decoration: BoxDecoration(
                       color: defaultColor,

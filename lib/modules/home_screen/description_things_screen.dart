@@ -43,7 +43,7 @@ class DescriptionThingsScreen extends StatelessWidget {
               expandedHeight:420,
               pinned: true,
               bottom: PreferredSize(
-                preferredSize:const Size.fromHeight(-5),
+                preferredSize:const Size.fromHeight(-1),
                 child: Container(
                   decoration: BoxDecoration(
                       color: defaultColor,
@@ -178,7 +178,7 @@ class DescriptionThingsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(onPressed: (){
-                          whatsappLink(phone: model.whatsNamber??'', message: "", context: context);
+                          whatsappLink(phone: model.phone??'', message: "", context: context);
                         }, icon: const Icon(Icons.whatsapp),
                           color: Colors.green,
                           splashColor: Colors.green,

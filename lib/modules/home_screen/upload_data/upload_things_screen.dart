@@ -4,8 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
-import 'package:newnew/shared/bloc/map_cubit/map_cubit.dart';
 import 'package:newnew/shared/components/components.dart';
+import 'package:newnew/shared/local/share_pereference.dart';
 import 'package:newnew/shared/style/colors.dart';
 import 'package:newnew/shared/style/icon_broken.dart';
 import 'package:intl/intl.dart';
@@ -119,7 +119,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     value: typeValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
-                    itemsList: <String>['paper','Personal belongings','transportation','Other'],
+                    itemsList: <String>['transportations','devices','papers','others'],
                     hintText: 'select type',
                     validate: (value){
                       // if(value!.isEmpty){
@@ -138,7 +138,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     value: stateValue,
                     hintColor: Colors.grey,
                     prefixIcon: IconBroken.Filter_2,
-                    itemsList: <String>['Missing','Found'],
+                    itemsList: <String>['missing','found'],
                     hintText: 'select state',
                     validate: (value){
                       // if(value!.isEmpty){
@@ -185,10 +185,10 @@ class UploadSearchForThingsScreen extends StatelessWidget {
 
                 ),
                 const  SizedBox(height: 10,),
-                if(typeValue == 'transportation')
+                if(typeValue == 'transportations')
                 defaultFormField(
                     controller: carNumberController,
-                    type: TextInputType.number,
+                    type: TextInputType.text,
                     hint: "car number",
                     validate: (value){
                       if(value!.isEmpty){
@@ -475,7 +475,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                               child: MaterialButton(onPressed: (){
                                 cubit.selectLocation();
                                 Navigator.of(context).pop();
-                                if(MapCubit.get(context).latLng != null){
+                                if(CacheHelper.getData(key: 'longitude')!= null){
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(backgroundColor: Colors.green,
                                         content: Text('get location success',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
@@ -557,6 +557,12 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                   Text('M',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
                   const Text('issing',),
                 ],),
+              leading: IconButton(icon: Icon(IconBroken.Arrow___Left),onPressed: (){
+                Navigator.of(context).pop();
+                CacheHelper.remove(key: 'longitude');
+                CacheHelper.remove(key: 'latitude');
+
+              },),
               centerTitle: true,
 
             ),
@@ -593,8 +599,8 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                             Expanded(
                               child: defaultButton(function: (){
                                  MainCubit.get(context).postMissingThings(
-                                   latitude: cubit.latLng!.latitude.toString(),
-                                   longitude: cubit.latLng!.longitude.toString(),
+                                   longitude: CacheHelper.getData(key: 'longitude').toString(),
+                                   latitude: CacheHelper.getData(key: 'latitude').toString(),
                                    whatApp:whatsNum ,
                                    phone:phoneNum ,
                                    date:lastSeenController.text ,
