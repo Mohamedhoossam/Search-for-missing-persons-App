@@ -31,7 +31,6 @@ import 'package:newnew/model/user_model/get_profile.dart';
 import 'package:newnew/model/get_model/old_ten_model.dart';
 import 'package:newnew/model/upload_model/search_for_family_model.dart';
 import 'package:newnew/modules/home_screen/already_found_screen.dart';
-import 'package:newnew/modules/home_screen/map_screen.dart';
 import 'package:newnew/modules/home_screen/paper_screen.dart';
 import 'package:newnew/modules/home_screen/personal_screen.dart';
 import 'package:newnew/modules/home_screen/upload_data/upload_screen.dart';
@@ -224,7 +223,7 @@ class MainCubit extends Cubit<MainState>{
   }
 
 
-  //upload missing person
+  //////////////////////////////upload missing person//////////////////////////////
   UploadPersonModel? uploadPersonModel;
   AlreadyMissingFoundModel? alreadyMissingFoundModel;
   void uploadMissingPerson(
@@ -697,7 +696,7 @@ void getOldTenPerson()async{
       getAllPersonModel=GetAllPersonModel.fromJson(response.data);
       emit(PersonFilterSuccessState(getAllPersonModel!));
       Navigator.of(context).pop();
-    }on DioError catch(e){
+    }on DioError catch(_){
       emit(PersonFilterSuccessState(getAllPersonModel!));
       getAllPerson();
       Fluttertoast.showToast(
@@ -765,7 +764,7 @@ void getOldTenPerson()async{
 
       emit(ThingsFilterSuccessState(getAllThingsModel!));
 
-    }on DioError catch(e){
+    }on DioError catch(_){
 
       getAllThings();
       Fluttertoast.showToast(
@@ -1279,7 +1278,7 @@ void getOldTenPerson()async{
 
     emit(UpdateUserCaseLoadingState());
     try{
-      var response = await DioHelper.patchData(url: updateUserThingsCaseUrl+id,
+       await DioHelper.patchData(url: updateUserThingsCaseUrl+id,
           data:formData,token: token);
       showToast(text: 'update success', state: ToastStates.SUCCESS);
       emit(UpdateUserCaseSuccessState());
@@ -1332,7 +1331,7 @@ void getOldTenPerson()async{
       searchByImageModel=SearchByImageModel.fromJson(response.data);
       emit(SearchByImageSuccessState());
 
-    }on DioError catch(e){
+    }on DioError catch(_){
       searchByImageModel != null?searchByImageModel!.data=[]:null;
       showToast(text: 'Not Found try Again 😅', state: ToastStates.ERROR);
       searchByImage = null;
@@ -1398,7 +1397,7 @@ void getOldTenPerson()async{
     if(pickerImage != null){
       searchByImage = File(pickerImage.path);
       File compressedImage = await customCompressed(imagePathToCompress: searchByImage!);
-      final sizeInKbAfter = compressedImage.lengthSync()/1924;
+      //final sizeInKbAfter = compressedImage.lengthSync()/1924;
       searchByImagePost(photo:compressedImage);
       emit(ImageGetSuccessState());
     }
@@ -1511,7 +1510,7 @@ void counterFound()async{
 
   emit(CounterCaseFoundLoadingState());
   try {
-    var response = await DioHelper.getData(
+     await DioHelper.getData(
       url: counterFoundUrl,
     );
     emit(CounterCaseFoundSuccessState());
@@ -1915,11 +1914,10 @@ void counterFound()async{
     }
 
     );
-    // CacheHelper.saveData(key:'longitude', value: latLng!.longitude.toString());
-    // CacheHelper.saveData(key:'latitude', value: latLng!.latitude.toString());
-   justEmitState();
+     CacheHelper.saveData(key:'longitude', value: latLng!.longitude.toString());
+    CacheHelper.saveData(key:'latitude', value: latLng!.latitude.toString());
 
-
+justEmitState();
 
 
   }
