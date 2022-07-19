@@ -117,7 +117,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                 hint: "name",
                 validate: (value){
                   if(value!.isEmpty){
-                   // return 'required';
+                    return 'required';
                   }
                   return null;
                 }, prefix: IconBroken.Profile),
@@ -130,9 +130,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                 type: TextInputType.name,
                 hint: "Father name",
                 validate: (value){
-                  // if(value!.isEmpty){
-                  //   return 'name must not be empty';
-                  // }
+                   if(value!.isEmpty){
+                     return 'required';
+                   }
                   return null;
                 }, prefix: IconBroken.Profile),
             const  SizedBox(height: 10,),
@@ -144,9 +144,9 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                 type: TextInputType.name,
                 hint: "Mother name",
                 validate: (value){
-                  // if(value!.isEmpty){
-                  //   return 'name must not be empty';
-                  // }
+                  if(value!.isEmpty){
+                    return 'required';
+                  }
                   return null;
                 }, prefix: IconBroken.Profile),
             const  SizedBox(height: 10,),
@@ -159,12 +159,8 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                 prefixIcon: IconBroken.Filter_2,
                 itemsList: <String>['male','female'],
                 hintText: 'select gender',
-                validate: (value){
-                  // if(value!.isEmpty){
-                  //   return 'name must not be empty';
-                  // }
-                  return null;
-                }
+              validate: (value) => value == null ? ' required' : null,
+
 
             ),
             const  SizedBox(height: 10,),
@@ -204,7 +200,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
 
                   validate: (value){
                     if(value!.isEmpty){
-                    //  return 'required';
+                      return 'required';
                     }
                     return null;
 
@@ -223,7 +219,7 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                   counterText: "Cm",
                   validate: (value){
                     if(value!.isEmpty){
-                    //  return 'required';
+                     return 'required';
                     }
                     return null;
                   },
@@ -242,12 +238,8 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                   ,'Mauritania','Kuwait','Oman','Qatar','Jubbuti','Bahrain','Union of Comoros'
                   ,'Palestine','Somalia'],
                 hintText: 'select Nationality',
-                validate: (value){
-                  // if(value!.isEmpty){
-                  //   return 'required';
-                  // }
-                  // return null;
-                }
+              validate: (value) => value == null ? ' required' : null,
+
 
             ),
             const  SizedBox(height: 10,),
@@ -272,11 +264,11 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                 textInputAction: TextInputAction.next,
                 controller: characteristicsController,
                 maxLines: 5,
-                type: TextInputType.multiline,
+                type: TextInputType.text,
                 hint: "Some distinguishing signs, if any, such as blind or mentally disturbed ...",
                 validate: (value){
                   if(value!.isEmpty){
-                  //  return 'required';
+                    return 'required';
                   }
                   return null;
                 }, ),
@@ -458,6 +450,12 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               focusNode:_teleNum ,
               textInputAction: TextInputAction.next,
               onSubmitted:(String)=>FocusScope.of(context).requestFocus(_whatsapp),
+              validator:  (value){
+                if(value!.number.isEmpty ){
+                  return 'required';
+                }
+                return null;
+              },
               decoration: const InputDecoration(
                 hintText: 'Phone',
                 enabledBorder: OutlineInputBorder(
@@ -489,6 +487,12 @@ class UploadMissingPersonalScreen extends StatelessWidget {
               focusNode:_whatsapp ,
               textInputAction: TextInputAction.next,
               onSubmitted:(String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
+              validator:  (value){
+                if(value!.number.isEmpty ){
+                  return 'required';
+                }
+                return null;
+              },
               decoration: const InputDecoration(
                 hintText: 'Whatsapp',
                 enabledBorder: OutlineInputBorder(
@@ -686,29 +690,44 @@ class UploadMissingPersonalScreen extends StatelessWidget {
                         Expanded(
                           child: defaultButton(
                             function: (){
-                               MainCubit.get(context).uploadMissingPerson(
-                                 longitude: CacheHelper.getData(key: 'longitude').toString(),
-                                 latitude: CacheHelper.getData(key: 'latitude').toString(),
-                                 height: heightController.text,
-                                 context: context,
-                                 name: nameController.text,
-                                 state: stateController.text,
-                                 fatherName: fatherNameController.text,
-                                 motherName: motherNameController.text,
-                                 gender: ganderValue,
-                                 yearOfBirth: yearOfBirthController.text,
-                                 weight: weightController.text,
-                                 nationality: countryName,
-                                 photo: cubit.personImage,
-                                 characteristics: characteristicsController.text,
-                                 date: lastSeenController.text,
-                                 country: countryController.text,
-                                 city: cityController.text,
-                                 messengerUserName: messengerUserNameController.text,
-                                 circumstances: accidentController.text,
-                                 phone: phoneNum,
-                                 whatApp: whatsNum,
-                               );
+                                if(keyForm4.currentState!.validate()){
+                                if(cubit.personImage != null ){
+    MainCubit.get(context).uploadMissingPerson(
+    longitude: CacheHelper.getData(key: 'longitude').toString(),
+    latitude: CacheHelper.getData(key: 'latitude').toString(),
+    height: heightController.text,
+    context: context,
+    name: nameController.text,
+    state: stateController.text,
+    fatherName: fatherNameController.text,
+    motherName: motherNameController.text,
+    gender: ganderValue,
+    yearOfBirth: yearOfBirthController.text,
+    weight: weightController.text,
+    nationality: countryName,
+    photo: cubit.personImage,
+    characteristics: characteristicsController.text,
+    date: lastSeenController.text,
+    country: countryController.text,
+    city: cityController.text,
+    messengerUserName: messengerUserNameController.text,
+    circumstances: accidentController.text,
+    phone: phoneNum,
+    whatApp: whatsNum,
+    );
+    }
+                                else{
+                                  cubit.tap(cubit.x=1);
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(backgroundColor: Colors.red,
+                                        content: Text('image must not be empty',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
+
+                                  );
+                                }
+
+
+                                }
                               },
                             text: 'upload', style: const TextStyle(color: Colors.white),background: defaultColor ,
                           ),

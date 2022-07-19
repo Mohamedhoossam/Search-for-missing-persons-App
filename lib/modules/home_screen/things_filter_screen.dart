@@ -124,14 +124,14 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                         children: <Widget>[
                            Padding(
                             padding:const EdgeInsets.all(16.0),
-                            child: Text("Paper", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
+                            child: Text("Papers", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
                           ),
                           const Spacer(),
                           Switch(
                             onChanged: (t) {
                               setState(() {
                                 _checkBoxValue1 =t ;
-                                typeValue = 'paper';
+                                typeValue = 'papers';
                               });
                             },
                             value: _checkBoxValue1,
@@ -144,14 +144,14 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                         children: <Widget>[
                             Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text("Personal belongings", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
+                            child: Text("Devices", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
                           ),
                           const  Spacer(),
                           Switch(
                             onChanged: (v) {
                               setState(() {
                                 _checkBoxValue2 = v;
-                                typeValue = 'Personal belongings';
+                                typeValue = 'devices';
                               });
                             },
                             activeColor: defaultColor,
@@ -164,14 +164,14 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                         children: <Widget>[
                             Padding(
                             padding:const EdgeInsets.all(16.0),
-                            child: Text("Transportation", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
+                            child: Text("Transportations", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
                           ),
                           const  Spacer(),
                           Switch(
                             onChanged: (v) {
                               setState(() {
                                 _checkBoxValue3 = v;
-                                typeValue = 'transportation';
+                                typeValue = "transportations";
                               });
                             },
                             activeColor: defaultColor,
@@ -184,14 +184,14 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                         children: <Widget>[
                             Padding(
                             padding:const  EdgeInsets.all(16.0),
-                            child: Text("Other", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
+                            child: Text("Others", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color:  cubit.isDark==false? Colors.black:Colors.white,)),
                           ),
                           const  Spacer(),
                           Switch(
                             onChanged: (v) {
                               setState(() {
                                 _checkBoxValue4 = v;
-                                typeValue = 'Other';
+                                typeValue = 'others';
                               });
                             },
                             activeColor: defaultColor,
@@ -292,8 +292,8 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                         cubit.getAllThingsFilter(
                             context: context,
                             name:nameController.text ,
-                            color:colorName ,
-                            state:_groupValue1 ==0 ? 'Missing' : 'Found' ,
+                            color:colorName,
+                            state:_groupValue1 ==0 ? 'missing' : 'found' ,
                             type: typeValue,
                             carNumber: carNumberController.text,
                             location: locationController.text,
