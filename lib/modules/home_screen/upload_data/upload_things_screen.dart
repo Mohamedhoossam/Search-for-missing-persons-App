@@ -107,7 +107,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     hint: "name",
                     validate: (value){
                       if(value!.isEmpty){
-                        // return 'required';
+                         return 'required';
                       }
                       return null;
                     }, prefix: IconBroken.Profile),
@@ -121,14 +121,9 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     prefixIcon: IconBroken.Filter_2,
                     itemsList: <String>['transportations','devices','papers','others'],
                     hintText: 'select type',
-                    validate: (value){
-                      // if(value!.isEmpty){
-                      //   return 'reqired';
-                      // }
-                      // return null;
-                    }
+                    validate: (value) => value == null ? ' required' : null,
 
-                ),
+            ),
                 const  SizedBox(height: 10,),
 
 
@@ -140,14 +135,10 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     prefixIcon: IconBroken.Filter_2,
                     itemsList: <String>['missing','found'],
                     hintText: 'select state',
-                    validate: (value){
-                      // if(value!.isEmpty){
-                      //   return 'name must not be empty';
-                      // }
-                     // return null;
-                    }
+                    validate: (value) => value == null ? 'field required' : null,
 
-                ),
+
+            ),
                 const  SizedBox(height: 10,),
                 defaultFormField(
                     controller: modelController,
@@ -158,7 +149,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     hint: "model",
                     validate: (value){
                       if(value!.isEmpty){
-                        // return 'required';
+                         return 'required';
                       }
                       return null;
                     }, prefix: IconBroken.Profile),
@@ -176,14 +167,10 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                       ,'yellow','navy','blue','teal','aqua','blue','lawngreen',
                       ],
                     hintText: 'select Color',
-                    validate: (value){
-                      // if(value!.isEmpty){
-                      //   return 'required';
-                      // }
-                      // return null;
-                    }
+                    validate: (value) => value == null ? 'field required' : null,
 
-                ),
+
+            ),
                 const  SizedBox(height: 10,),
                 if(typeValue == 'transportations')
                 defaultFormField(
@@ -192,7 +179,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     hint: "car number",
                     validate: (value){
                       if(value!.isEmpty){
-                        // return 'required';
+                         return 'required';
                       }
                       return null;
                     }, prefix: IconBroken.Profile),
@@ -223,7 +210,7 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                     hint: "Description...",
                     validate: (value){
                       if(value!.isEmpty){
-                        //  return 'required';
+                          return 'required';
                       }
                       return null;
                     }, ),
@@ -364,8 +351,15 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                   textInputAction: TextInputAction.next,
 
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_whatsapp),
+                  validator:  (value){
+                    if(value!.number.isEmpty ){
+                      return 'required';
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     hintText: 'Phone',
+
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -397,6 +391,13 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                   focusNode: _whatsapp,
                   textInputAction: TextInputAction.next,
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
+                  validator:  (value){
+                         if(value!.number.isEmpty ){
+                             return 'required';
+                                    }
+                               return null;
+                                       },
+                  invalidNumberMessage:"required" ,
                   decoration: const InputDecoration(
                     hintText: 'Whatsapp',
                     enabledBorder: OutlineInputBorder(
@@ -598,23 +599,39 @@ class UploadSearchForThingsScreen extends StatelessWidget {
                             const SizedBox(width: 20,),
                             Expanded(
                               child: defaultButton(function: (){
-                                 MainCubit.get(context).postMissingThings(
-                                   longitude: CacheHelper.getData(key: 'longitude').toString(),
-                                   latitude: CacheHelper.getData(key: 'latitude').toString(),
-                                   whatApp:whatsNum ,
-                                   phone:phoneNum ,
-                                   date:lastSeenController.text ,
-                                   photo:cubit.missingThingsImage ,
-                                   state:stateValue ,
-                                   name:nameController.text ,
-                                   color: colorName,
-                                   type: typeValue,
-                                   carNumber: carNumberController.text,
-                                   description:descriptionController.text ,
-                                   location: locationController.text,
-                                   messengerUserName:messengerUserNameController.text ,
-                                   model: modelController.text
-                                 );
+
+
+                                  if(keyForm4.currentState!.validate()){
+                                    if(cubit.missingThingsImage != null ){
+                                  MainCubit.get(context).postMissingThings(
+                                      longitude: CacheHelper.getData(key: 'longitude').toString(),
+                                      latitude: CacheHelper.getData(key: 'latitude').toString(),
+                                      whatApp:whatsNum ,
+                                      phone:phoneNum ,
+                                      date:lastSeenController.text ,
+                                      photo:cubit.missingThingsImage ,
+                                      state:stateValue ,
+                                      name:nameController.text ,
+                                      color: colorName,
+                                      type: typeValue,
+                                      carNumber: carNumberController.text,
+                                      description:descriptionController.text ,
+                                      location: locationController.text,
+                                      messengerUserName:messengerUserNameController.text ,
+                                      model: modelController.text
+                                  );}
+                                  else{
+                                    cubit.tap(cubit.x=1);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(backgroundColor: Colors.red,
+                                          content: Text('image must not be empty',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
+
+                                    );
+                                  }
+                                }
+
+
                                  }, text: 'upload', style: const TextStyle(color: Colors.white),background: defaultColor ,
                               ),
                             ),

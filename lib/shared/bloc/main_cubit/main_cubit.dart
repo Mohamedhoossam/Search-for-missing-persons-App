@@ -750,7 +750,7 @@ void getOldTenPerson()async{
        if(getAllThingsModel!.data!.isEmpty ){
          getAllThings();
          Fluttertoast.showToast(
-           msg:'Not Found 😅 !',
+           msg:'Not Found !',
            toastLength: Toast.LENGTH_LONG,
            gravity: ToastGravity.BOTTOM,
            timeInSecForIosWeb: 2,
@@ -764,11 +764,12 @@ void getOldTenPerson()async{
 
       emit(ThingsFilterSuccessState(getAllThingsModel!));
 
-    }on DioError catch(_){
+    }on DioError catch(e){
+      print(e.message);
 
       getAllThings();
       Fluttertoast.showToast(
-        msg:'Not Found 😅 !',
+        msg:'Not Found !',
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,

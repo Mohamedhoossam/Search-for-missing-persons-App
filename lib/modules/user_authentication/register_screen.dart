@@ -153,8 +153,14 @@ class RegisterScreen extends StatelessWidget {
                     prefix: IconBroken.Message,
                       type: TextInputType.emailAddress,
                       validate: (value){
+                        bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailController.text);
+
                         if(value!.isEmpty){
                           return 'email must not be empty';
+                        }
+                        else if (emailValid == false){
+                          return 'Check your email';
+
                         }
                         return null;
                       },
@@ -177,6 +183,10 @@ class RegisterScreen extends StatelessWidget {
                       validate: (value){
                         if(value!.isEmpty){
                           return 'password must not be empty';
+                        }
+                        else if (passwordController.text.length<8){
+                          return 'enter at least 8 character';
+
                         }
                         return null;
                       },

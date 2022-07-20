@@ -120,6 +120,15 @@ class LayoutScreen extends StatelessWidget {
                 navigateTo(context,  const ProfileScreen());
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.add_chart),
+              title: const Text('user states',style: TextStyle(fontFamily: 'jannah',fontSize: 14),),
+              textColor: Colors.white,
+              iconColor: Colors.white,
+              onTap: (){
+                navigateTo(context,  const UserCaseScreen());
+              },
+            ),
             if(CacheHelper.getData(key: 'role')=='admin')
             ListTile(
               leading: const Icon(Icons.admin_panel_settings_outlined),

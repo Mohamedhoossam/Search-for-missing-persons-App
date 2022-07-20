@@ -94,12 +94,26 @@ class SearchScreen extends StatelessWidget {
                     builder: (context) => AlertDialog(
                       content: const Text('select image by?'),
                       actions: [
-                        MaterialButton(onPressed: (){
-                          MainCubit.get(context).getSearchByImageGallery(context: context);
-                        },child: Text('Gallery',style: TextStyle(color: defaultColor),),),
-                        MaterialButton(onPressed: (){
-                          MainCubit.get(context).getSearchByImageCamera(context: context);
-                        },child: const Text('Camera',style: TextStyle(color: Colors.red),),),
+                        Container(
+                          decoration:  BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color:defaultColor,
+
+                          ),
+                          child: MaterialButton(onPressed: (){
+                            MainCubit.get(context).getSearchByImageGallery(context: context);
+                          },child: Text('Gallery',style: TextStyle(color:Colors.white),),),
+                        ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Colors.green,
+
+                          ),
+                          child: MaterialButton(onPressed: (){
+                            MainCubit.get(context).getSearchByImageCamera(context: context);
+                          },child: const Text('Camera',style: TextStyle(color: Colors.white),),),
+                        ),
                       ],
                     ),
                   );

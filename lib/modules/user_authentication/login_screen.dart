@@ -151,8 +151,14 @@ class LoginScreen extends StatelessWidget {
                     prefix: IconBroken.Message,
                     type: TextInputType.emailAddress,
                     validate: (value){
+                      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailController.text);
+
                       if(value!.isEmpty){
-                        return 'email must not be empty';
+                        return 'Email must not be empty';
+                      }
+                      else if (emailValid == false){
+                        return 'Check your email';
+
                       }
                       return null;
                     },
@@ -175,7 +181,7 @@ class LoginScreen extends StatelessWidget {
                       type: TextInputType.visiblePassword,
                       validate: (value){
                         if(value!.isEmpty){
-                          return 'password must not be empty';
+                          return 'Password must not be empty';
                         }
                         return null;
                       },
@@ -215,9 +221,17 @@ class LoginScreen extends StatelessWidget {
                   ConditionalBuilder(
                     builder: (context)=>defaultButton(
                       function:(){
-                        if(formKey.currentState!.validate()){
-                          cubit.loginPostData(email: emailController.text, password: passwordController.text,context: context);
-                        }
+
+
+
+                        if (formKey.currentState!.validate()) {
+
+                          cubit.loginPostData(email: emailController.text,
+                              password: passwordController.text,
+                              context: context);
+
+                      }
+
                       },
                       width: widthScreen/1.992,
                       height: heightScreen/14.7,

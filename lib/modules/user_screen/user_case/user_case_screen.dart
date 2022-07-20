@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newnew/modules/user_screen/user_case/missing_person_case.dart';
 import 'package:newnew/modules/user_screen/user_case/search_for_family_case.dart';
 import 'package:newnew/modules/user_screen/user_case/things_case.dart';
+import 'package:newnew/modules/user_screen/user_profile/profile_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_state.dart';
 import 'package:newnew/shared/components/components.dart';
@@ -49,7 +50,9 @@ class UserCaseScreen extends StatelessWidget {
             ],),
           textColor: Colors.black,
           iconColor: Colors.black,
-          onTap: (){Navigator.of(context).pop();},
+          onTap: (){
+            navigateToAndRemove(context, ProfileScreen());
+            },
         ),
         myDivider(),
         const SizedBox(height: 20,),

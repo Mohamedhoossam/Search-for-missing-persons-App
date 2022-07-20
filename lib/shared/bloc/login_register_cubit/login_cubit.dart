@@ -257,13 +257,16 @@ late UserDataModel userDataModel;
   Future signInWithFacebook({required BuildContext context}) async {
     // Trigger the sign-in flow
     //permissions:['email','user_birthday']
-    final  loginResult = await FacebookAuth.instance.login(permissions:['email']);
+    final  loginResult = await FacebookAuth.instance.login(permissions:['email','phone']);
+
     if(loginResult.status == LoginStatus.success) {
-      await FacebookAuth.instance.getUserData().then((value) {
+   var x=   await FacebookAuth.instance.getUserData().then((value) {
           facebookLoginPostData(name: value['name'], email: value['email'],
               photo: value['picture']['data']['url'], context: context);
         print('1111111111111111111+++++++++++++++++++');
+          print(value);
         print(value['email']);
+
         print(value['name']);
         print(value['picture']['data']['url']);
         print('1111111111111111111+++++++++++++++++++');
@@ -354,7 +357,7 @@ late UserDataModel userDataModel;
       CacheHelper.saveData(key: 'role', value: response.data['data']['role']);
       userDataModel=UserDataModel.fromJson(response.data);
       token=userDataModel.token!;
-      print('token           $token');
+      print('token $token');
       CacheHelper.saveData(key: 'token', value: userDataModel.token!);
       emit(LoginSuccessState(userDataModel));
       MainCubit.get(context).currentIndex=0;

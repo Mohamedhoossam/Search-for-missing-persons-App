@@ -164,13 +164,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                     itemsList: <String>['male','female'],
                     hintText: 'select gender',
                     focusNode: _gender,
+                  validate: (value) => value == null ? ' required' : null,
 
-                    validate: (value){
-                     //  if(value.isEmpty){
-                     //   // return 'required';
-                     //  }
-                     // // return null;
-                    }
 
                 ),
                 const  SizedBox(height: 10,),
@@ -209,7 +204,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       textInputAction:TextInputAction.next ,
                       validate: (value){
                         if(value!.isEmpty){
-                          //  return 'required';
+                            return 'required';
                         }
                         return null;
 
@@ -228,7 +223,7 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       textInputAction:TextInputAction.next,
                       validate: (value){
                         if(value!.isEmpty){
-                          //  return 'required';
+                            return 'required';
                         }
                         return null;
                       },
@@ -247,12 +242,8 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                       ,'Mauritania','Kuwait','Oman','Qatar','Jubbuti','Bahrain','Union of Comoros'
                       ,'Palestine','Somalia'],
                     hintText: 'select Nationality',
-                    validate: (value){
-                      // if(value!.isEmpty){
-                      //   return 'required';
-                      // }
-                      // return null;
-                    }
+                  validate: (value) => value == null ? ' required' : null,
+
 
                 ),
                 const  SizedBox(height: 10,),
@@ -463,6 +454,12 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                   focusNode: _phoneFocusNode,
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_whatsNumberFocusNode),
                   textInputAction:TextInputAction.next,
+                  validator:  (value){
+                    if(value!.number.isEmpty ){
+                      return 'required';
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     hintText: 'Phone',
                     enabledBorder: OutlineInputBorder(
@@ -492,6 +489,12 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                 IntlPhoneField(
                   focusNode: _whatsNumberFocusNode,
                   onSubmitted: (String)=>FocusScope.of(context).requestFocus(_messengerUserNameFocusNode),
+                  validator:  (value){
+                    if(value!.number.isEmpty ){
+                      return 'required';
+                    }
+                    return null;
+                  },
                   textInputAction:TextInputAction.next ,
                   decoration: const InputDecoration(
                     hintText: 'Whatsapp',
@@ -692,29 +695,45 @@ class UploadSearchForFamilyScreen extends StatelessWidget {
                             const SizedBox(width: 20,),
                             Expanded(
                               child: defaultButton(function: (){
+                                 if(keyForm4.currentState!.validate()){
+                                 if(cubit.searchForFamilyImage != null ){
                                 cubit.postSearchForFamily(
-                                  longitude: CacheHelper.getData(key: 'longitude').toString(),
-                                  latitude: CacheHelper.getData(key: 'latitude').toString(),
-                                  height: heightController.text,
+                                 longitude: CacheHelper.getData(key: 'longitude').toString(),
+                                 latitude: CacheHelper.getData(key: 'latitude').toString(),
+                                 height: heightController.text,
                                   context: context,
-                                  name: nameController.text,
-                                  state: stateController.text,
-                                  fatherName: fatherNameController.text,
-                                  motherName: motherNameController.text,
-                                  gender: ganderValue,
-                                  yearOfBirth: yearOfBirthController.text,
-                                  weight: weightController.text,
-                                  nationality: countryName,
-                                  photo: cubit.searchForFamilyImage,
-                                  characteristics: characteristicsController.text,
-                                  date: lastSeenController.text,
-                                  country: countryController.text,
-                                  city: cityController.text,
-                                  messangerUserName: messengerUserNameController.text,
-                                  circumstances: accidentController.text,
-                                  phone: phoneNum,
-                                  whatApp: whatsNum,
-                                );
+                                name: nameController.text,
+                               state: stateController.text,
+                               fatherName: fatherNameController.text,
+                               motherName: motherNameController.text,
+                               gender: ganderValue,
+                               yearOfBirth: yearOfBirthController.text,
+                               weight: weightController.text,
+                               nationality: countryName,
+                               photo: cubit.searchForFamilyImage,
+                               characteristics: characteristicsController.text,
+                               date: lastSeenController.text,
+                               country: countryController.text,
+                               city: cityController.text,
+                               messangerUserName: messengerUserNameController.text,
+                               circumstances: accidentController.text,
+                               phone: phoneNum,
+                               whatApp: whatsNum,
+                  );
+                  }
+
+                                 else{
+                                   cubit.tap(cubit.x=1);
+
+                                   ScaffoldMessenger.of(context).showSnackBar(
+                                     const SnackBar(backgroundColor: Colors.red,
+                                         content: Text('image must not be empty',style: TextStyle(fontFamily: 'Jannah',color: Colors.white),)),
+
+                                   );
+                                 }
+
+                                 }
+
 
                               }, text: 'upload', style: const TextStyle(color: Colors.white),background: defaultColor ,
                               ),

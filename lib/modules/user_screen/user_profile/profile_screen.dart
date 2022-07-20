@@ -2,6 +2,9 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newnew/missing_layout/layout.dart';
+import 'package:newnew/modules/home_screen/map_screen.dart';
+import 'package:newnew/modules/home_screen/personal_screen.dart';
 import 'package:newnew/modules/user_screen/user_profile/edit_profile_screen.dart';
 import 'package:newnew/modules/user_screen/user_case/user_case_screen.dart';
 import 'package:newnew/shared/bloc/main_cubit/main_cubit.dart';
@@ -39,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
             leading:IconButton(
               icon: const Icon(IconBroken.Arrow___Left),
               onPressed: (){
-                Navigator.of(context).pop();
+                navigateToAndRemove(context, LayoutScreen());
               },
             ),
             centerTitle: true,

@@ -98,21 +98,21 @@ class UpdateUserSearchForFamilyCaseScreen extends StatelessWidget {
       },
       builder: (context, state) {
 
-        nameController.text = nameController.text.isEmpty ? model!.name! : nameController.text;
-        fatherNameController.text = fatherNameController.text.isEmpty?model!.fatherName! : fatherNameController.text;
-        motherNameController.text = motherNameController.text.isEmpty?model!.motherName! :motherNameController.text;
+        nameController.text = nameController.text.isEmpty ? model!.name!.toString() : nameController.text;
+        fatherNameController.text = fatherNameController.text.isEmpty?model!.fatherName!.toString() : fatherNameController.text;
+        motherNameController.text = motherNameController.text.isEmpty?model!.motherName!.toString() :motherNameController.text;
         weightController.text = weightController.text.isEmpty?model!.weight!.toString() : weightController.text;
         heightController.text = heightController.text.isEmpty?model!.height!.toString() : heightController.text;
-        characteristicsController.text =  characteristicsController.text.isEmpty ? model!.characteristics! : characteristicsController.text;
+        characteristicsController.text =  characteristicsController.text.isEmpty ? model!.characteristics!.toString() : characteristicsController.text;
         lastSeenController.text = lastSeenController.text.isEmpty? formattedDate(model!.date!) : lastSeenController.text;
-        cityController.text = cityController.text.isEmpty? model!.city! : cityController.text ;
-        countryController.text = countryController.text.isEmpty? model!.country! : countryController.text;
-        stateController.text = stateController.text.isEmpty ? model!.state! : stateController.text;
-        accidentController.text = accidentController.text.isEmpty ? model!.circumstances! : accidentController.text;
-        messengerUserNameController.text = messengerUserNameController.text.isEmpty? model!.messangerUserName! : messengerUserNameController.text;
+        cityController.text = cityController.text.isEmpty? model!.city!.toString() : cityController.text ;
+        countryController.text = countryController.text.isEmpty? model!.country!.toString() : countryController.text;
+        stateController.text = stateController.text.isEmpty ? model!.state!.toString() : stateController.text;
+        accidentController.text = accidentController.text.isEmpty ? model!.circumstances!.toString() : accidentController.text;
+        messengerUserNameController.text = messengerUserNameController.text.isEmpty? model!.messangerUserName!.toString() : messengerUserNameController.text;
         yearOfBirthController.text = yearOfBirthController.text.isEmpty? model!.yearOfBirth!.toString() : yearOfBirthController.text;
-        phoneNumberController.text = phoneNumberController.text.isEmpty? model!.phone! : phoneNumberController.text;
-        whatsNumberController.text = whatsNumberController.text.isEmpty ? model!.whatsApp! : whatsNumberController.text;
+        phoneNumberController.text = phoneNumberController.text.isEmpty? model!.phone!.toString() : phoneNumberController.text;
+        whatsNumberController.text = whatsNumberController.text.isEmpty ? model!.whatsApp!.toString() : whatsNumberController.text;
         changeGender(ganderValue?? model!.gender!);
         changeCountry(countryName?? model!.nationality!);
         var cubit = MainCubit.get(context);
