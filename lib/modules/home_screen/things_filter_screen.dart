@@ -84,6 +84,22 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                             Text("Founded",style: TextStyle(color:  cubit.isDark==false? Colors.black:Colors.white,))
                         ],
                       ),
+                      Row(
+                        children: <Widget>[
+                          Radio(
+                            groupValue: _groupValue1,
+                            value: 2,
+                            onChanged: (dynamic t) {
+                              setState(() {
+                                _groupValue1 = t;
+                              });
+                            },
+                            activeColor: defaultColor,
+                          ),
+                          Text("All",style: TextStyle(color:  cubit.isDark==false? Colors.black:Colors.white,))
+                        ],
+                      ),
+
                     ],
                   ),
                   myDivider(),
@@ -293,7 +309,7 @@ class _ThingsFilterScreenState extends State<ThingsFilterScreen> {
                             context: context,
                             name:nameController.text ,
                             color:colorName,
-                            state:_groupValue1 ==0 ? 'missing' : 'found' ,
+                            state:_groupValue1 ==0 ? 'missing' :_groupValue1 ==1? 'found':'' ,
                             type: typeValue,
                             carNumber: carNumberController.text,
                             location: locationController.text,

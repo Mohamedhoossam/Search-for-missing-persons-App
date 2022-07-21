@@ -24,9 +24,10 @@ class _PersonalFilterScreenState extends State<PersonalFilterScreen> {
   int ageDivisions = 30;
   RangeValues ranges1 =  const RangeValues(18, 150);//age
   RangeValues rangesChildAge =  const RangeValues(0, 17);//age
+  RangeValues rangesAllAge =  const RangeValues(0, 150);//age
   RangeValues range=const RangeValues(18, 150);
   RangeLabels labels = const RangeLabels("Start", "End");//age
-  RangeValues ranges2 = const RangeValues(70, 220);//height
+  RangeValues ranges2 = const RangeValues(30, 220);//height
   RangeLabels labels2 = const RangeLabels("Start", "End");//height
   RangeValues ranges3 = const RangeValues(10, 250); // weight
   RangeLabels labels3 = const RangeLabels("Start", "End");// weight
@@ -87,6 +88,22 @@ class _PersonalFilterScreenState extends State<PersonalFilterScreen> {
                         Text("Female",style: TextStyle(color:  cubit.isDark==false? Colors.black:Colors.white,))
                     ],
                   ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     Radio(
+                  //       groupValue: _groupValue1,
+                  //       value: 2,
+                  //       onChanged: (dynamic t) {
+                  //         setState(() {
+                  //           _groupValue1 = t;
+                  //         });
+                  //       },
+                  //       activeColor: defaultColor,
+                  //     ),
+                  //     Text("All",style: TextStyle(color:  cubit.isDark==false? Colors.black:Colors.white,))
+                  //   ],
+                  // ),
+
                 ],
               ),
               myDivider(),
@@ -101,8 +118,8 @@ class _PersonalFilterScreenState extends State<PersonalFilterScreen> {
                           setState(() {
                             _groupValue2 = v;
                             _groupValue2==1?maxAge=17:maxAge=150;
-                            _groupValue2==1?minAge=0:minAge=18;
-                            _groupValue2==1?range=rangesChildAge:range=ranges1;
+                            _groupValue2==1?minAge=0:_groupValue2==0?minAge=18:minAge=0;
+                            _groupValue2==1?range=rangesChildAge:_groupValue2==0?range=ranges1:range=rangesAllAge;
                             _groupValue2==1?ageDivisions=17:ageDivisions=30;
 
 
@@ -123,14 +140,34 @@ class _PersonalFilterScreenState extends State<PersonalFilterScreen> {
                           setState(() {
                             _groupValue2 = v;
                             _groupValue2==1?maxAge=17:maxAge=150;
-                            _groupValue2==1?minAge=0:minAge=18;
-                            _groupValue2==1?range=rangesChildAge:range=ranges1;
+                            _groupValue2==1?minAge=0:_groupValue2==0?minAge=18:minAge=0;
+                            _groupValue2==1?range=rangesChildAge:_groupValue2==0?range=ranges1:range=rangesAllAge;
                             _groupValue2==1?ageDivisions=17:ageDivisions=30;
+
                           });
                         },
                         activeColor: defaultColor,
                       ),
                        Text("Child",style: TextStyle(color:  cubit.isDark==false? Colors.black:Colors.white,))
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio(
+                        groupValue: _groupValue2,
+                        value: 2,
+                        onChanged: (dynamic v) {
+                          setState(() {
+                            _groupValue2 = v;
+                            _groupValue2==1?maxAge=17:maxAge=150;
+                            _groupValue2==1?minAge=0:_groupValue2==0?minAge=18:minAge=0;
+                            _groupValue2==1?range=rangesChildAge:_groupValue2==0?range=ranges1:range=rangesAllAge;
+                            _groupValue2==1?ageDivisions=17:ageDivisions=30;
+                          });
+                        },
+                        activeColor: defaultColor,
+                      ),
+                      Text("All",style: TextStyle(color:  cubit.isDark==false? Colors.black:Colors.white,))
                     ],
                   ),
                 ],
@@ -198,7 +235,7 @@ class _PersonalFilterScreenState extends State<PersonalFilterScreen> {
                 },
                 labels: labels2,
                 values: ranges2,
-                min: 70,
+                min: 30,
                 max: 220,
                 divisions: 30,
                 inactiveColor: Colors.grey,
@@ -315,7 +352,7 @@ class _PersonalFilterScreenState extends State<PersonalFilterScreen> {
                   onPressed: (){
                     cubit.getAllPersonFilter(context: context,
                       name:nameController.text,
-                      gender:_groupValue1==0?'male':'female',
+                      gender:_groupValue1==0?'male':_groupValue1==1?'female':'',
                       maxAge:range.end.toString(),
                       minAge: range.start.toString(),
                       maxHeight:ranges2.end.toString(),

@@ -23,27 +23,32 @@ class LayoutScreen extends StatelessWidget {
   LayoutScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Text('M',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
-        const Text('issing',),
-      ],),
-      centerTitle: true,
-      actions: const [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Icon(
-               IconBroken.Search
-          ),
-        ),
-      ],
-      leading: IconButton(onPressed:(){
-        result == true ? scaffoldKey.currentState!.openDrawer():null;
-        } ,icon:const Icon(Icons.menu) ),
-
-    );
+    // AppBar appBar = AppBar(
+    //   title: Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //     Text('M',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
+    //     const Text('issing',),
+    //   ],),
+    //   centerTitle: true,
+    //   actions:  [
+    //     Padding(
+    //       padding: EdgeInsets.symmetric(horizontal: 10),
+    //       child: MainCubit.get(context).isFilter == true? IconButton(onPressed: (){
+    //         MainCubit.get(context).isFilter == false;
+    //         MainCubit.get(context).getAllPerson();
+    //         MainCubit.get(context).getAllThings();
+    //       },
+    //           icon: Icon(Icons.refresh)): Icon(
+    //            IconBroken.Search
+    //       ),
+    //     ),
+    //   ],
+    //   leading: IconButton(onPressed:(){
+    //     result == true ? scaffoldKey.currentState!.openDrawer():null;
+    //     } ,icon:const Icon(Icons.menu) ),
+    //
+    // );
 
     return BlocConsumer<MainCubit, MainState>(
 
@@ -54,7 +59,31 @@ class LayoutScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor:cubit.isDark == false? Colors.white :Colors.black ,
-      appBar:appBar,
+      appBar:AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('M',style: TextStyle(fontFamily: 'Jannah',color: defaultColor,fontSize: 20),),
+            const Text('issing',),
+          ],),
+        centerTitle: true,
+        actions:  [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: cubit.isFilter == true ? IconButton(onPressed: (){
+              MainCubit.get(context).getAllPerson();
+              MainCubit.get(context).getAllThings();
+              cubit.isFilterChangeState();
+
+            },
+                icon: Icon(Icons.refresh)): IconButton(onPressed: (){}, icon: Icon(IconBroken.Search)),
+          ),
+        ],
+        leading: IconButton(onPressed:(){
+          result == true ? scaffoldKey.currentState!.openDrawer():null;
+        } ,icon:const Icon(Icons.menu) ),
+
+      ),
       body:result == true? ConditionalBuilder(
         builder: (BuildContext context) => cubit.screen[cubit.currentIndex],
         condition: MainCubit.get(context).getProfileModel != null,

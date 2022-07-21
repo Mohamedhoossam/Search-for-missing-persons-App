@@ -694,6 +694,7 @@ void getOldTenPerson()async{
       });
 
       getAllPersonModel=GetAllPersonModel.fromJson(response.data);
+      isFilter = true;
       emit(PersonFilterSuccessState(getAllPersonModel!));
       Navigator.of(context).pop();
     }on DioError catch(_){
@@ -719,6 +720,7 @@ void getOldTenPerson()async{
 
 
 ///////////////////get things filter ///////////////////////////////////////////
+  bool isFilter = false;
   void getAllThingsFilter({
     String? name,
     String? type,
@@ -759,7 +761,7 @@ void getOldTenPerson()async{
            fontSize: 16.0,
          );
        }
-
+      isFilter = true;
       Navigator.of(context).pop();
 
       emit(ThingsFilterSuccessState(getAllThingsModel!));
@@ -1921,6 +1923,11 @@ void counterFound()async{
 justEmitState();
 
 
+  }
+
+  isFilterChangeState(){
+    isFilter = !isFilter;
+    emit(JustEmitState());
   }
 
 
